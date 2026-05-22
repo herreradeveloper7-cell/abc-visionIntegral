@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #000000;
+  --color-brand-dark: #05313C;
+  --color-brand-orange: #F99228;
+  --color-brand-gray: #F0F1F0;
+  --color-brand-white: #FFFFFF;
+
+  --font-title: "Montserrat", sans-serif;
+  --font-body: "Poppins", sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    background: var(--color-brand-white);
+    color: var(--color-brand-black);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-title);
+  }
+}
