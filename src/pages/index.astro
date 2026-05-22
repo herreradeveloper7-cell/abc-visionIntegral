@@ -1,16 +1,27 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
 ---
 
-<!-- Below is your "component template." It's just HTML, but with
-    some magic sprinkled in to help you build great templates. -->
-<html>
-  <body>
-    <h1>Hello, World!</h1>
-  </body>
-</html>
-<style>
-  h1 {
-    color: orange;
-  }
-</style>
+<BaseLayout
+  title="ABC Vision Integral"
+  description="Soluciones integrales para proyectos, servicios y acompaniamiento profesional."
+>
+  <Header />
+  <main>
+    <section class="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-20 pt-40">
+      <div class="max-w-3xl">
+        <p class="mb-4 font-title text-sm font-bold uppercase tracking-wide text-brand-orange">
+          Comunicacion visual que contruye marcas.
+        </p>
+        <h1 class="font-title text-4xl font-extrabold leading-tight text-brand-dark md:text-6xl">
+          Potenciamos tu imagen comercial con soluciones visuales de alto impacto.
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-brand-black/75">
+          Combinamos la creatividad, tecnologica y precisión para producir piezas
+          visuales que hacen visible el valor de tu marca.
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
