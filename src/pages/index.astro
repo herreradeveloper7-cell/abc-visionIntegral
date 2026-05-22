@@ -1,27 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
 ---
 
 <BaseLayout
   title="ABC Vision Integral"
-  description="Soluciones integrales para proyectos, servicios y acompaniamiento profesional."
+  description="ABC Vision Integral ofrece soluciones en identidad visual, identidad digital y presencia estrategica para marcas y negocios."
 >
   <Header />
   <main>
-    <section class="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-20 pt-40">
-      <div class="max-w-3xl">
-        <p class="mb-4 font-title text-sm font-bold uppercase tracking-wide text-brand-orange">
-          Comunicacion visual que contruye marcas.
-        </p>
-        <h1 class="font-title text-4xl font-extrabold leading-tight text-brand-dark md:text-6xl">
-          Potenciamos tu imagen comercial con soluciones visuales de alto impacto.
-        </h1>
-        <p class="mt-6 max-w-2xl text-lg leading-8 text-brand-black/75">
-          Combinamos la creatividad, tecnologica y precisión para producir piezas
-          visuales que hacen visible el valor de tu marca.
-        </p>
-      </div>
-    </section>
+    <Hero />
   </main>
 </BaseLayout>
