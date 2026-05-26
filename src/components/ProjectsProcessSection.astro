@@ -1,0 +1,234 @@
+---
+import { ChevronRight, ClipboardCheck, Cog, Drill, PencilRuler } from "lucide-astro";
+
+const steps = [
+  {
+    icon: ClipboardCheck,
+    number: "01",
+    title: "Diagnostico",
+    text: "Entendemos tu marca, tus objetivos y el impacto que quieres lograr.",
+  },
+  {
+    icon: PencilRuler,
+    number: "02",
+    title: "Diseno",
+    text: "Creamos propuestas visuales que comunican y conectan.",
+  },
+  {
+    icon: Cog,
+    number: "03",
+    title: "Produccion",
+    text: "Materializamos con tecnologia de punta y control de calidad.",
+  },
+  {
+    icon: Drill,
+    number: "04",
+    title: "Instalacion",
+    text: "Ejecutamos con precision para garantizar resultados impecables.",
+  },
+];
+---
+
+<section class="projects-process-section relative z-40 bg-brand-gray px-0 pb-0">
+  <div class="process-shell relative mx-auto max-w-[96rem] px-6">
+    <div class="process-base"></div>
+
+    <div class="process-panel">
+      <div class="process-intro">
+        <p>Nuestro proceso</p>
+        <h2>Asi convertimos tu idea en realidad</h2>
+      </div>
+
+      <div class="process-steps">
+        {
+          steps.map(({ icon: Icon, number, title, text }, index) => (
+            <article class="process-step">
+              <Icon size={46} strokeWidth={1.65} aria-hidden="true" />
+              <div>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
+              {index < steps.length - 1 && <ChevronRight class="step-arrow" size={25} strokeWidth={1.7} aria-hidden="true" />}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-process-section {
+    height: 5rem;
+    overflow: visible;
+    isolation: isolate;
+    background:
+      linear-gradient(0deg, rgba(255, 255, 255, 0.98) 0%, rgba(213, 214, 214, 0.96) 100%),
+      var(--color-brand-gray);
+    box-shadow: 0 -20px 36px rgba(0, 0, 0, 0.28);
+  }
+
+  .process-shell {
+    position: relative;
+    z-index: 2;
+    min-height: 0.35rem;
+    margin-top: -6rem;
+  }
+
+  .process-base {
+    position: absolute;
+    z-index: 1;
+    top: -5.45rem;
+    left: -0.10rem;
+    right: -1rem;
+    height: 10.5rem;
+    background: linear-gradient(180deg, #151515 0%, #030303 100%);
+    clip-path: polygon(4rem 0, 100% 0, calc(100% - 3.8rem) 100%, 0 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 24px 46px rgba(0, 0, 0, 0.36);
+  }
+
+  .process-panel {
+    position: relative;
+    z-index: 2;
+    top: -4rem;
+    display: grid;
+    grid-template-columns: 0.72fr 2.28fr;
+    min-height: 7.8rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: linear-gradient(180deg, rgba(28, 28, 28, 0.94), rgba(8, 8, 8, 0.96));
+    clip-path: polygon(4rem 0, 100% 0, calc(100% - 3.4rem) 100%, 0 100%);
+  }
+
+
+  .process-intro {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.25rem 2.5rem 1.25rem 6rem;
+    color: var(--color-brand-white);
+  }
+
+  .process-intro::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 18%;
+    width: 1px;
+    height: 64%;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .process-intro p {
+    margin-bottom: 0.45rem;
+    font-family: var(--font-title);
+    font-size: 0.66rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-brand-orange);
+  }
+
+  .process-intro h2 {
+    max-width: 18rem;
+    font-family: var(--font-title);
+    font-size: 1.55rem;
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1.08;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .process-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    padding: 1.1rem 2.15rem;
+    color: var(--color-brand-white);
+  }
+
+  .process-step > svg:not(.step-arrow) {
+    flex: 0 0 auto;
+    color: var(--color-brand-orange);
+  }
+
+  .process-step span {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--color-brand-orange);
+  }
+
+  .process-step h3 {
+    font-family: var(--font-title);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .process-step p {
+    margin-top: 0.35rem;
+    max-width: 12rem;
+    font-size: 0.62rem;
+    line-height: 1.42;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .step-arrow {
+    position: absolute;
+    right: -0.5rem;
+    top: 50%;
+    color: var(--color-brand-orange);
+    opacity: 0.8;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 1180px) {
+    .process-panel {
+      grid-template-columns: 1fr;
+      clip-path: none;
+    }
+
+    .process-base {
+      display: none;
+    }
+
+    .process-intro {
+      padding-left: 2rem;
+    }
+
+    .process-intro::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .process-steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .projects-process-section {
+      margin-top: -2rem;
+    }
+
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
+
+    .step-arrow {
+      display: none;
+    }
+  }
+</style>

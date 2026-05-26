@@ -1,0 +1,123 @@
+---
+const solutions = [
+  {
+    title: "Impresion de Gran Formato",
+    image: "/images/imagen-hero.webp",
+  },
+  {
+    title: "Impresion UV",
+    image: "/images/imagen-hero.webp",
+  },
+  {
+    title: "Branding Corporativo",
+    image: "/images/imagen-hero.webp",
+  },
+];
+---
+
+<section class="solutions-section relative w-full bg-brand-white px-0 pb-18 pt-8">
+  <div class="solutions-shell mx-auto grid max-w-[96rem] items-center gap-10 px-8 py-9 lg:grid-cols-[0.9fr_1.7fr] lg:px-16">
+    <div class="solutions-copy">
+      <p class="mb-4 font-title text-xs font-extrabold uppercase tracking-wide text-brand-orange">
+        Soluciones visuales integrales
+      </p>
+      <h2 class="font-title text-3xl font-extrabold italic leading-tight text-brand-black md:text-[2.55rem]">
+        Todo lo que tu marca necesita, en un solo
+        <span class="text-brand-orange">aliado estrategico.</span>
+      </h2>
+    </div>
+
+    <div class="solutions-cards grid gap-6 md:grid-cols-3">
+      {
+        solutions.map((solution) => (
+          <article class="solution-card">
+            <img src={solution.image} alt={solution.title} />
+            <div class="solution-card-overlay"></div>
+            <h3>{solution.title}</h3>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .solutions-section {
+    margin-top: -4rem;
+    border-bottom: 0.65rem solid var(--color-brand-black);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
+  }
+
+  .solutions-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(249, 146, 40, 0.15) 25%,
+      var(--color-brand-orange) 50%,
+      rgba(249, 146, 40, 0.15) 75%,
+      transparent 100%
+    );
+    opacity: 0.95;
+    box-shadow:
+      0 0 12px rgba(249, 146, 40, 0.55),
+      0 0 28px rgba(249, 146, 40, 0.32);
+    mask-image: linear-gradient(90deg, transparent 0%, black 32%, black 68%, transparent 100%);
+  }
+
+  .solutions-shell {
+    position: relative;
+    overflow: visible;
+  }
+
+  .solution-card {
+    position: relative;
+    min-height: 10rem;
+    overflow: hidden;
+    border-radius: 0.4rem;
+    background: var(--color-brand-black);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .solution-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.86);
+    transform: scale(1.08);
+  }
+
+  .solution-card-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.28)),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.52));
+  }
+
+  .solution-card h3 {
+    position: relative;
+    z-index: 1;
+    max-width: 10rem;
+    padding: 1.8rem 1.35rem;
+    font-family: var(--font-title);
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--color-brand-white);
+  }
+
+  @media (max-width: 1023px) {
+    .solutions-section {
+      margin-top: 0;
+      padding-top: 2rem;
+    }
+  }
+</style>

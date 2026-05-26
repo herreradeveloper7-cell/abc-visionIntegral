@@ -1,0 +1,227 @@
+---
+import { ArrowRight, Building2, Crosshair, PackageCheck, Printer, ScanLine, Shirt, Truck } from "lucide-astro";
+
+const serviceCards = [
+  {
+    icon: Printer,
+    title: "Impresion de Gran Formato",
+    text: "Graficas de gran impacto para exterior e interior con la mas alta calidad.",
+    image: "/images/imagen-hero.webp",
+    position: "58% center",
+  },
+  {
+    icon: ScanLine,
+    title: "Impresion UV",
+    text: "Impresion directa sobre multiples superficies con acabados premium y gran durabilidad.",
+    image: "/images/imagen-hero.webp",
+    position: "46% center",
+  },
+  {
+    icon: Crosshair,
+    title: "Corte Laser y Troquelado",
+    text: "Cortes precisos y detalles perfectos en una amplia variedad de materiales.",
+    image: "/images/imagen-hero.webp",
+    position: "50% center",
+  },
+  {
+    icon: Truck,
+    title: "Branding Corporativo y Vehicular",
+    text: "Disenamos, producimos y aplicamos la identidad de tu marca en cualquier superficie.",
+    image: "/images/imagen-hero.webp",
+    position: "100% center",
+  },
+  {
+    icon: ScanLine,
+    title: "Senalizacion Industrial y Comercial",
+    text: "Senales que comunican, orientan y fortalecen tu presencia de marca.",
+    image: "/images/imagen-hero.webp",
+    position: "42% center",
+  },
+  {
+    icon: Building2,
+    title: "Stands y Mobiliario Comercial",
+    text: "Disenamos y fabricamos espacios que generan experiencias y atraen miradas.",
+    image: "/images/imagen-hero.webp",
+    position: "68% center",
+  },
+  {
+    icon: Shirt,
+    title: "Merchandising",
+    text: "Articulos promocionales que conectan tu marca con las personas.",
+    image: "/images/imagen-hero.webp",
+    position: "76% center",
+  },
+  {
+    icon: PackageCheck,
+    title: "Logistica e Instalacion",
+    text: "Entregamos e instalamos con precision y seguridad en todo el pais.",
+    image: "/images/imagen-hero.webp",
+    position: "92% center",
+  },
+];
+---
+
+<section class="services-grid-section relative bg-brand-black px-6 pb-14 pt-10">
+  <div class="mx-auto grid max-w-[92rem] gap-4 md:grid-cols-2 xl:grid-cols-4">
+    {
+      serviceCards.map(({ icon: Icon, title, text, image, position }) => (
+        <article class="service-card">
+          <img src={image} alt={title} style={`object-position: ${position};`} />
+          <div class="service-card-overlay"></div>
+
+          <div class="service-card-content">
+            <Icon size={31} strokeWidth={1.8} aria-hidden="true" />
+            <h2>{title}</h2>
+            <p>{text}</p>
+            <a href="/contacto">
+              <span>Conocer mas</span>
+              <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .services-grid-section {
+    margin-top: -1.8rem;
+  }
+
+  .service-card {
+    position: relative;
+    min-height: 13.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.55rem;
+    background: #080808;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 16px 34px rgba(0, 0, 0, 0.3);
+  }
+
+  .service-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.04);
+    transform: scale(1.05);
+  }
+
+  .service-card-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.74) 34%, rgba(0, 0, 0, 0.22) 72%, rgba(0, 0, 0, 0.46) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.45));
+  }
+
+  .service-card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 13.6rem;
+    height: 100%;
+    max-width: 15rem;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.1rem 1.35rem;
+    color: var(--color-brand-white);
+  }
+
+  .service-card-content svg {
+    margin-bottom: 0.55rem;
+    color: var(--color-brand-orange);
+  }
+
+  .service-card-content h2 {
+    font-family: var(--font-title);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.12;
+  }
+
+  .service-card-content p {
+    margin-top: 0.5rem;
+    max-width: 10rem;
+    font-size: 0.72rem;
+    text-align: justify;
+    line-height: 1.33;
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .service-card-content a {
+    position: relative;
+    display: inline-flex;
+    min-height: 1.95rem;
+    align-items: center;
+    line-height: 1;
+    gap: 1.35rem;
+    margin-top: auto;
+    border-radius: 0.28rem;
+    background: linear-gradient(90deg, #f36d07, var(--color-brand-orange));
+    padding: 0 1rem;
+    font-family: var(--font-title);
+    font-size: 0.66rem;
+    font-weight: 800;
+    color: var(--color-brand-white);
+    box-shadow: 0 10px 20px rgba(249, 146, 40, 0.22);
+    overflow: hidden;
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  }
+
+  .service-card-content a:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+      0 0 18px rgba(249, 146, 40, 0.58),
+      0 18px 34px rgba(249, 146, 40, 0.34);
+  }
+
+  .service-card-content a::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    width: 28%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: translateX(-120%) skewX(-22deg);
+    transition: transform 520ms ease;
+  }
+
+  .service-card-content a > * {
+    position: relative;
+    z-index: 1;
+    color: var(--color-brand-white);
+    opacity: 1;
+  }
+
+  .service-card-content a svg {
+    color: var(--color-brand-white);
+    stroke: currentColor;
+    flex: 0 0 auto;
+    display: block;
+    transform: translateY(0.25rem);
+  }
+
+  .service-card-content a:hover::after {
+    transform: translateX(520%) skewX(-22deg);
+  }
+
+  @media (max-width: 1023px) {
+    .services-grid-section {
+      margin-top: -1rem;
+      padding-top: 2.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .services-grid-section {
+      padding-inline: 1rem;
+    }
+  }
+</style>

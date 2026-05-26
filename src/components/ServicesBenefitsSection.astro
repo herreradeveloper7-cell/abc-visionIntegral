@@ -1,0 +1,191 @@
+---
+import { BadgeCheck, Rocket, ShieldCheck, UsersRound } from "lucide-astro";
+
+const benefits = [
+  {
+    icon: BadgeCheck,
+    title: "Calidad que se ve, experiencia que respalda",
+    text: "Mas de 10 anos entregando soluciones que impactan.",
+  },
+  {
+    icon: Rocket,
+    title: "Tecnologia de punta, resultados superiores",
+    text: "Equipos de ultima generacion para proyectos sin limites.",
+  },
+  {
+    icon: UsersRound,
+    title: "Acompanamiento integral",
+    text: "Te asesoramos en cada etapa, de la idea a la instalacion.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Compromiso y cumplimiento",
+    text: "Entregas a tiempo, con garantia y altos estandares.",
+  },
+];
+---
+
+<section class="services-benefits-section relative bg-brand-gray px-0 py-0 pb-16">
+  <div class="benefits-shell relative mx-auto max-w-[96rem] px-6">
+    <div class="benefits-layer benefits-layer-silver"></div>
+    <div class="benefits-layer benefits-layer-black"></div>
+
+    <div class="benefits-panel">
+      {
+        benefits.map(({ icon: Icon, title, text }) => (
+          <article class="benefit-item">
+            <div class="benefit-icon">
+              <Icon size={43} strokeWidth={1.7} aria-hidden="true" />
+            </div>
+            <div>
+              <h2>{title}</h2>
+              <p>{text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-benefits-section {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 241, 240, 0.98)),
+      var(--color-brand-gray);
+  }
+
+  .benefits-shell {
+    min-height: 9rem;
+  }
+
+  .benefits-shell::before {
+    content: "";
+    position: absolute;
+    top: -0.12rem;
+    left: 4.4rem;
+    right: 4.8rem;
+    z-index: 3;
+    height: 0.18rem;
+    background: linear-gradient(90deg, transparent 0%, rgba(249, 146, 40, 0.35) 12%, var(--color-brand-orange) 50%, rgba(249, 146, 40, 0.35) 88%, transparent 100%);
+    box-shadow:
+      0 0 10px rgba(249, 146, 40, 0.85),
+      0 0 24px rgba(249, 146, 40, 0.55),
+      0 0 42px rgba(249, 146, 40, 0.34);
+    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .benefits-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
+  .benefits-layer-silver {
+    top: 0rem;
+    left: -3.5rem;
+    height: 7.45rem;
+    background: linear-gradient(90deg, #f4f4f4 0%, #8f8f8f 20%, #d7d7d7 100%);
+    clip-path: polygon(3.2rem 0, 100% 0, calc(100% - 5rem) 100%, 0 100%);
+  }
+
+  .benefits-layer-black {
+    top: 0rem;
+    left: -2.25rem;
+    right: -4.5rem;
+    height: 7.45rem;
+    background: linear-gradient(180deg, #030303 0%, var(--color-brand-black) 100%);
+    clip-path: polygon(4rem 0, 100% 0, calc(100% - 4.2rem) 100%, 1rem 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.13),
+      0 22px 45px rgba(0, 0, 0, 0.28);
+  }
+
+  .benefits-panel {
+    position: relative;
+    z-index: 1;
+    top: 0rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    min-height: 7rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(180deg, rgba(32, 32, 32, 0.96), rgba(14, 14, 14, 0.98));
+    clip-path: polygon(3rem 0, 100% 0, calc(100% - 3.4rem) 100%, 0rem 100%);
+  }
+
+  .benefit-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.05rem;
+    padding: 1rem 2.65rem;
+    color: var(--color-brand-white);
+  }
+
+  .benefit-item + .benefit-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 14%;
+    width: 1px;
+    height: 72%;
+    background: rgba(255, 255, 255, 0.19);
+    transform: skewX(-28deg);
+  }
+
+  .benefit-icon {
+    display: grid;
+    width: 3.4rem;
+    height: 3.4rem;
+    flex: 0 0 auto;
+    place-items: center;
+    color: var(--color-brand-orange);
+  }
+
+  .benefit-item h2 {
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .benefit-item p {
+    margin-top: 0.35rem;
+    max-width: 14rem;
+    font-size: 0.68rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  @media (max-width: 1023px) {
+    .benefits-layer {
+      display: none;
+    }
+
+    .benefits-shell {
+      min-height: auto;
+    }
+
+    .benefits-panel {
+      top: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      clip-path: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .benefits-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .benefit-item + .benefit-item::before {
+      top: 0;
+      width: 100%;
+      height: 1px;
+      transform: none;
+    }
+  }
+</style>

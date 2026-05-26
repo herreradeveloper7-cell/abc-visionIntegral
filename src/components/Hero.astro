@@ -1,6 +1,38 @@
 ---
 import { ArrowRight, Box, Cpu, Cog, Crosshair, MapPin, ScanLine, Shirt, Sofa, Target, Truck } from "lucide-astro";
 
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  highlightedTitle?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  showActions?: boolean;
+  showPanels?: boolean;
+  compact?: boolean;
+  primaryActionLabel?: string;
+  primaryActionHref?: string;
+  secondaryActionLabel?: string;
+  secondaryActionHref?: string;
+}
+
+const {
+  eyebrow = "Comunicacion visual que construye marcas",
+  title = "Potenciamos tu imagen comercial con soluciones visuales de",
+  highlightedTitle = "alto impacto",
+  description = "Combinamos creatividad, tecnologia y precision para producir piezas visuales que hacen visible el valor de tu marca.",
+  image = "/images/imagen-hero.webp",
+  imageAlt = "Soluciones visuales de ABC Vision Integral",
+  showActions = true,
+  showPanels = true,
+  compact = false,
+  primaryActionLabel = "Conoce nuestros servicios",
+  primaryActionHref = "/servicios",
+  secondaryActionLabel = "Ver proyectos",
+  secondaryActionHref = "/proyectos",
+} = Astro.props;
+
 const features = [
   {
     icon: Cog,
@@ -36,80 +68,86 @@ const services = [
 ];
 ---
 
-<section class="hero-section relative overflow-hidden bg-brand-white pb-16 pt-20">
-  <div class="hero-grid min-h-148 lg:min-h-160">
+<section class:list={["hero-section relative overflow-hidden bg-brand-white pt-20", compact ? "pb-10" : "pb-16"]}>
+  <div class:list={["hero-grid", compact ? "min-h-120 lg:min-h-132" : "min-h-148 lg:min-h-160"]}>
     <div class="hero-copy relative z-10 flex -translate-y-6 items-center justify-end px-8 py-10 pt-16 md:px-16 md:pt-0 lg:pl-24 lg:pr-0">
       <div class="relative max-w-xl md:pl-10">
         <div class="absolute -left-8 top-24 hidden h-32 w-0.5 bg-brand-orange md:block rounded-2xl"></div>
 
         <p class="mb-4 font-title text-xs font-extrabold uppercase tracking-wide text-brand-orange md:text-sm">
-          Comunicacion visual que construye marcas
+          {eyebrow}
         </p>
 
         <h1 class="font-title text-2xl font-extrabold italic leading-[1.08] text-brand-black md:text-2xl xl:text-[2.6rem]">
-          Potenciamos tu imagen comercial con soluciones visuales de
-          <span class="text-brand-orange">alto impacto</span>
+          {title}
+          <span class="text-brand-orange"> {highlightedTitle}</span>
         </h1>
 
         <p class="mt-5 max-w-lg text-base leading-7 text-brand-black/65">
-          Combinamos creatividad, tecnologia y precision para producir piezas visuales que hacen visible el valor de tu marca.
+          {description}
         </p>
 
-        <div class="mt-7 flex flex-wrap gap-5">
-          <a href="/servicios" class="hero-button hero-button-orange">
-            <span>Conoce nuestros servicios</span>
-            <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-          </a>
+        {
+          showActions && (
+            <div class="hero-actions mt-7 flex gap-4">
+              <a href={primaryActionHref} class="hero-button hero-button-orange">
+                <span>{primaryActionLabel}</span>
+                <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
+              </a>
 
-          <a href="/proyectos" class="hero-button hero-button-dark">
-            <span>Ver proyectos</span>
-            <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-          </a>
-        </div>
+              <a href={secondaryActionHref} class="hero-button hero-button-dark">
+                <span>{secondaryActionLabel}</span>
+                <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
+              </a>
+            </div>
+          )
+        }
       </div>
     </div>
 
     <div class="hero-visual relative overflow-hidden">
       <img
-        src="/images/imagen-hero.webp"
-        alt="Soluciones visuales de ABC Vision Integral"
+        src={image}
+        alt={imageAlt}
         class="absolute inset-0 h-full w-full scale-110 object-cover object-[100%_center]"
       />
     </div>
   </div>
 
-  <div class="service-strip relative z-30 -mt-45 ml-auto mr-0 w-[50vw] pl-4 pr-0">
-    <div class="service-panel relative -top-2 z-20 w-full px-10 py-2">
-      {
-        services.map(({ icon: Icon, label }) => (
-          <article class="service-item">
-            <Icon size={22} strokeWidth={1.7} aria-hidden="true" />
-            <span>{label}</span>
-          </article>
-        ))
-      }
-    </div>
-  </div>
+  {
+    showPanels && (
+      <>
+        <div class="service-strip relative z-30 -mt-45 ml-auto mr-0 w-[50vw] pl-4 pr-0">
+          <div class="service-panel relative -top-2 z-20 w-full px-10 py-2">
+            {services.map(({ icon: Icon, label }) => (
+              <article class="service-item">
+                <Icon size={22} strokeWidth={1.7} aria-hidden="true" />
+                <span>{label}</span>
+              </article>
+            ))}
+          </div>
+        </div>
 
-  <div class="feature-strip relative z-20 ml-auto mr-0 -mt-2 w-[92vw] pl-4 pr-0">
-    <div class="feature-base">
-      <div class="feature-panel">
-        {
-          features.map(({ icon: Icon, title, text }) => (
-            <article class="feature-item">
-              <div class="feature-icon">
-                <Icon size={34} strokeWidth={1.8} aria-hidden="true" />
-              </div>
-              <div>
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </div>
+        <div class="feature-strip relative z-20 ml-auto mr-0 -mt-2 w-[92vw] pl-4 pr-0">
+          <div class="feature-base">
+            <div class="feature-panel">
+              {features.map(({ icon: Icon, title, text }) => (
+                <article class="feature-item">
+                  <div class="feature-icon">
+                    <Icon size={34} strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h2>{title}</h2>
+                    <p>{text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
 </section>
 
 <style>
@@ -135,22 +173,56 @@ const services = [
   }
 
   .hero-button {
+    position: relative;
     display: inline-flex;
     min-height: 3rem;
+    width: max-content;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 0 1.55rem;
+    gap: 1.15rem;
+    padding: 0 1.35rem;
     border-radius: 0.35rem;
     font-family: var(--font-title);
     font-size: 0.82rem;
     font-weight: 800;
     color: var(--color-brand-white);
-    transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, filter 180ms ease;
+  }
+
+  .hero-button span {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .hero-button svg {
+    position: relative;
+    z-index: 1;
   }
 
   .hero-button:hover {
-    transform: translateY(-2px);
+    filter: brightness(1.08);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .hero-button::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    width: 28%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: translateX(-120%) skewX(-22deg);
+    transition: transform 520ms ease;
+  }
+
+  .hero-button:hover::after {
+    transform: translateX(520%) skewX(-22deg);
   }
 
   .hero-button-orange {
@@ -159,7 +231,9 @@ const services = [
   }
 
   .hero-button-orange:hover {
-    box-shadow: 0 16px 34px rgba(249, 146, 40, 0.34);
+    box-shadow:
+      0 0 18px rgba(249, 146, 40, 0.58),
+      0 18px 34px rgba(249, 146, 40, 0.34);
   }
 
   .hero-button-dark {
@@ -168,6 +242,9 @@ const services = [
 
   .hero-button-dark:hover {
     background: var(--color-brand-dark);
+    box-shadow:
+      0 0 16px rgba(249, 146, 40, 0.32),
+      0 16px 30px rgba(0, 0, 0, 0.3);
   }
 
   .service-panel {
@@ -314,6 +391,10 @@ const services = [
   }
 
   @media (max-width: 640px) {
+    .hero-actions {
+      flex-wrap: wrap;
+    }
+
     .service-panel {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

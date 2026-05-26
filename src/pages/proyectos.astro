@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import ProjectsProcessSection from "../components/ProjectsProcessSection.astro";
+import ProjectsProofSection from "../components/ProjectsProofSection.astro";
+---
+
+<BaseLayout
+  title="Proyectos | ABC Vision Integral"
+  description="Proyectos de comunicacion visual, branding, fachadas, senalizacion, stands y mobiliario comercial desarrollados por ABC Vision Integral."
+>
+  <Header />
+  <main class="min-h-screen bg-brand-white">
+    <Hero
+      eyebrow="Proyectos que hablan por marcas"
+      title="Proyectos que convierten espacios en"
+      highlightedTitle="experiencias de marca."
+      description="Cada proyecto es una solucion integral que combina creatividad, tecnologia y precision para comunicar, impactar y posicionar."
+      primaryActionLabel="Conoce nuestro proceso"
+      primaryActionHref="/servicios"
+      secondaryActionLabel="Hablemos de tu proyecto"
+      secondaryActionHref="/contacto"
+      showPanels={false}
+    />
+    <ProjectsProcessSection />
+    <ProjectsProofSection />
+  </main>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import ServicesCategoryBar from "../components/ServicesCategoryBar.astro";
+import ServicesGridSection from "../components/ServicesGridSection.astro";
+import ServicesBenefitsSection from "../components/ServicesBenefitsSection.astro";
+---
+
+<BaseLayout
+  title="Servicios | ABC Vision Integral"
+  description="Servicios de comunicacion visual, impresion, branding, senalizacion y soluciones integrales para marcas."
+>
+  <Header />
+  <main class="min-h-screen bg-brand-white">
+    <Hero
+      eyebrow="Nuestros servicios"
+      title="Servicios que"
+      highlightedTitle="impulsan marcas"
+      description="Soluciones visuales integrales que combinan creatividad, tecnologia y precision para llevar tu marca mas lejos."
+      showActions={false}
+      showPanels={false}
+      compact
+    />
+    <ServicesCategoryBar />
+    <ServicesGridSection />
+    <ServicesBenefitsSection />
+  </main>
+</BaseLayout>

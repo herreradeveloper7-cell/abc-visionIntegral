@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import AboutHeroSection from "../components/AboutHeroSection.astro";
+import AboutContactPanel from "../components/AboutContactPanel.astro";
+---
+
+<BaseLayout
+  title="Nosotros | ABC Vision Integral"
+  description="Conoce la historia, experiencia y equipo detras de ABC Vision Integral."
+>
+  <Header />
+  <main class="about-page min-h-screen bg-brand-white">
+    <section class="about-layout">
+      <div class="about-left">
+        <AboutHeroSection />
+      </div>
+
+      <AboutContactPanel />
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 64%) minmax(26rem, 36%);
+    min-height: 100vh;
+  }
+
+  .about-left {
+    position: relative;
+    min-height: 100vh;
+    padding: 8.5rem 0 3rem 7rem;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 2rem 13rem, rgba(5, 49, 60, 0.1) 0 1px, transparent 1px),
+      var(--color-brand-white);
+    background-size: 0.8rem 0.8rem;
+  }
+
+  @media (max-width: 1023px) {
+    .about-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .about-left {
+      min-height: auto;
+      padding: 7rem 1.5rem 3rem;
+    }
+  }
+</style>

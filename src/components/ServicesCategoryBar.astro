@@ -1,0 +1,174 @@
+---
+import { Boxes, Cog, Grid2X2, PackageCheck, Truck } from "lucide-astro";
+
+const categories = [
+  { icon: Grid2X2, label: "Todos los servicios", active: true },
+  { icon: Cog, label: "Produccion" },
+  { icon: PackageCheck, label: "Branding" },
+  { icon: Boxes, label: "Espacios" },
+  { icon: Truck, label: "Instalacion" },
+];
+---
+
+<section class="services-categories relative z-40">
+  <div class="services-categories-inner relative mx-auto max-w-[96rem] px-6">
+    <div class="category-layer category-layer-gray"></div>
+    <div class="category-layer category-layer-black"></div>
+
+    <div class="category-panel">
+      {
+        categories.map(({ icon: Icon, label, active }) => (
+          <button class:list={["category-button", active && "is-active"]} type="button">
+            <Icon size={20} strokeWidth={2} aria-hidden="true" />
+            <span>{label}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-categories {
+    margin-top: -10rem;
+    padding-bottom: 0;
+  }
+
+  .services-categories-inner {
+    min-height: 9.2rem;
+  }
+
+  .category-layer {
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    pointer-events: none;
+  }
+
+  .category-layer-gray {
+    top: 2.9rem;
+    height: 4.5rem;
+    background: linear-gradient(90deg, #3b3b3b 0%, #7a7a7a 42%, var(--color-brand-gray) 100%);
+    clip-path: polygon(2.5rem 0, calc(100% - 25rem) 0, calc(100% - 20rem) 100%, 0 100%);
+  }
+
+  .category-layer-black {
+    top: 1.9rem;
+    height: 5.5rem;
+    background: linear-gradient(180deg, rgba(24, 24, 24, 0.98), rgba(4, 4, 4, 0.98));
+    clip-path: polygon(4.8rem 0, calc(100% - 22rem) 0, calc(100% - 17rem) 100%, 2.2rem 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 18px 40px rgba(0, 0, 0, 0.34);
+  }
+
+  .category-panel {
+    position: relative;
+    z-index: 1;
+    top: 3.6rem;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: min(74rem, calc(100% - 7rem));
+    margin-left: 4.35rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(12, 12, 12, 0.82);
+    clip-path: polygon(2.2rem 0, calc(100% - 2.5rem) 0, 100% 100%, 0 100%);
+    backdrop-filter: blur(5px);
+  }
+
+  .category-button {
+    position: relative;
+    display: inline-flex;
+    min-height: 3.65rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+    font-family: var(--font-title);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.74);
+    overflow: hidden;
+    transition: color 180ms ease, background-color 180ms ease, transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+  }
+
+  .category-button + .category-button::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.18);
+    transform: skewX(28deg);
+  }
+
+  .category-button.is-active {
+    z-index: 1;
+    width: calc(100% + 1rem);
+    color: var(--color-brand-white);
+    background: linear-gradient(90deg, #f36d07 0%, var(--color-brand-orange) 100%);
+    clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 100%, 0 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 0 26px rgba(249, 146, 40, 0.28);
+  }
+
+  .category-button.is-active::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    width: 28%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: translateX(-120%) skewX(-22deg);
+    transition: transform 520ms ease;
+  }
+
+  .category-button.is-active > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-button:hover {
+    color: var(--color-brand-white);
+  }
+
+  .category-button.is-active:hover {
+    filter: brightness(1.08);
+    transform: scale(1.02);
+    box-shadow:
+      0 0 18px rgba(249, 146, 40, 0.58),
+      0 18px 34px rgba(249, 146, 40, 0.28);
+  }
+
+  .category-button.is-active:hover::after {
+    transform: translateX(520%) skewX(-22deg);
+  }
+
+  @media (max-width: 1023px) {
+    .services-categories {
+      margin-top: -2rem;
+    }
+
+    .category-layer {
+      display: none;
+    }
+
+    .category-panel {
+      top: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+      margin-left: 0;
+      clip-path: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .category-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

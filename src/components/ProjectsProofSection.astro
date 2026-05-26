@@ -1,0 +1,382 @@
+---
+import { ArrowRight, Award, BadgeCheck, Cog, UsersRound } from "lucide-astro";
+
+const stats = [
+  {
+    icon: Cog,
+    value: "+250",
+    label: "Proyectos ejecutados",
+  },
+  {
+    icon: UsersRound,
+    value: "+180",
+    label: "Marcas que confian en nosotros",
+  },
+  {
+    icon: Award,
+    value: "+12",
+    label: "Anos de experiencia comunicando marcas",
+  },
+  {
+    icon: BadgeCheck,
+    value: "100%",
+    label: "Comprometidos con la excelencia",
+  },
+];
+---
+
+<section class="projects-proof-section relative bg-brand-white px-6 py-9">
+  <div class="projects-proof-shell mx-auto grid max-w-[96rem] items-center gap-8 lg:grid-cols-[1.05fr_1.05fr_2fr]">
+    <blockquote class="proof-quote">
+      <span aria-hidden="true">“</span>
+      <p>
+        ABC Vision Integral entendio nuestra esencia y la transformo en espacios que elevan nuestra marca.
+        Profesionales, cumplidos y con un nivel de detalle excepcional.
+      </p>
+      <footer>
+        <strong>Maria Fernanda Gonzalez</strong>
+        <small>Gerente de Mercadeo - Grupo Evoluciona</small>
+      </footer>
+    </blockquote>
+
+    <div class="proof-image">
+      <img src="/images/imagen-hero.webp" alt="Proyecto corporativo de ABC Vision Integral" />
+    </div>
+
+    <div class="proof-stats">
+      {
+        stats.map(({ icon: Icon, value, label }) => (
+          <article class="proof-stat">
+            <Icon size={42} strokeWidth={1.65} aria-hidden="true" />
+            <strong>{value}</strong>
+            <p>{label}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="proof-cta-shell mx-auto mt-8 max-w-[96rem] px-6">
+    <div class="proof-cta-base"></div>
+
+    <div class="proof-cta-panel">
+      <h2>
+        ¿Listo para llevar tu marca al
+        <span>siguiente nivel?</span>
+      </h2>
+
+      <p>
+        Cuentanos tu proyecto y hagamos que tu marca se vea, se sienta y se recuerde.
+      </p>
+
+      <a href="/contacto">
+        <span>Solicita una asesoria</span>
+        <ArrowRight size={17} strokeWidth={2.5} aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-proof-section {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(240, 241, 240, 0.96)),
+      var(--color-brand-gray);
+  }
+
+  .projects-proof-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    width: min(72rem, 72vw);
+    height: 0.28rem;
+    background: linear-gradient(90deg, transparent 0%, rgba(249, 146, 40, 0.58) 12%, var(--color-brand-orange) 50%, rgba(249, 146, 40, 0.58) 88%, transparent 100%);
+    box-shadow:
+      0 0 12px rgba(249, 146, 40, 0.98),
+      0 0 28px rgba(249, 146, 40, 0.76),
+      0 0 52px rgba(249, 146, 40, 0.48);
+    transform: translateX(-50%);
+    mask-image: linear-gradient(90deg, transparent 0%, black 16%, black 84%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .projects-proof-shell {
+    min-height: 8.2rem;
+  }
+
+  .proof-quote {
+    position: relative;
+    display: grid;
+    align-content: center;
+    min-height: 7.2rem;
+    padding-left: 3.1rem;
+    color: var(--color-brand-black);
+  }
+
+  .proof-quote > span {
+    position: absolute;
+    left: 0.2rem;
+    top: 0.05rem;
+    font-family: var(--font-title);
+    font-size: 4.2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-brand-orange);
+  }
+
+  .proof-quote p {
+    max-width: 24rem;
+    font-size: 0.82rem;
+    line-height: 1.58;
+    color: rgba(0, 0, 0, 0.78);
+  }
+
+  .proof-quote footer {
+    margin-top: 0.85rem;
+  }
+
+  .proof-quote strong,
+  .proof-quote small {
+    display: block;
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .proof-quote small {
+    color: rgba(0, 0, 0, 0.64);
+  }
+
+  .proof-image {
+    min-height: 7.2rem;
+    overflow: hidden;
+    border-radius: 0.15rem;
+    clip-path: polygon(2rem 0, 100% 0, calc(100% - 1.8rem) 100%, 0 100%);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .proof-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 7.2rem;
+    object-fit: cover;
+    object-position: 58% center;
+  }
+
+  .proof-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    min-height: 7.2rem;
+  }
+
+  .proof-stat {
+    position: relative;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 0.42rem;
+    padding: 0.6rem 1rem;
+    text-align: center;
+  }
+
+  .proof-stat + .proof-stat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 18%;
+    width: 1px;
+    height: 64%;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .proof-stat svg {
+    color: rgba(0, 0, 0, 0.72);
+  }
+
+  .proof-stat strong {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-brand-orange);
+  }
+
+  .proof-stat p {
+    max-width: 9rem;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: rgba(0, 0, 0, 0.74);
+  }
+
+  .proof-cta-shell {
+    position: relative;
+    min-height: 6.1rem;
+  }
+
+  .proof-cta-base {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 5.75rem;
+    background: linear-gradient(180deg, #080808 0%, #000 100%);
+    clip-path: polygon(4.5rem 0, 100% 0, calc(100% - 3.8rem) 100%, 0 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 18px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  .proof-cta-panel {
+    position: relative;
+    z-index: 1;
+    top: 0.65rem;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr 1.1fr;
+    min-height: 4.4rem;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(180deg, rgba(28, 28, 28, 0.96), rgba(10, 10, 10, 0.98));
+    clip-path: polygon(3.4rem 0, 100% 0, calc(100% - 3rem) 100%, 0 100%);
+  }
+
+  .proof-cta-panel::after {
+    content: "";
+    position: absolute;
+    left: calc((100% / 3) * 2);
+    top: 14%;
+    width: 1px;
+    height: 72%;
+    background: rgba(255, 255, 255, 0.18);
+    transform: skewX(-28deg);
+    pointer-events: none;
+  }
+
+  .proof-cta-panel h2 {
+    padding-left: 6rem;
+    font-family: var(--font-title);
+    font-size: 1.35rem;
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1.15;
+    color: var(--color-brand-white);
+  }
+
+  .proof-cta-panel h2 span {
+    color: var(--color-brand-orange);
+  }
+
+  .proof-cta-panel p {
+    position: relative;
+    max-width: 22rem;
+    padding-inline: 2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .proof-cta-panel p::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 14%;
+    width: 1px;
+    height: 72%;
+    background: rgba(255, 255, 255, 0.18);
+    transform: skewX(-28deg);
+  }
+
+  .proof-cta-panel a {
+    position: relative;
+    display: inline-flex;
+    width: min(22rem, calc(100% - 3rem));
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    justify-self: center;
+    background: linear-gradient(90deg, #f36d07 0%, var(--color-brand-orange) 100%);
+    clip-path: polygon(1.45rem 0, 100% 0, calc(100% - 1.45rem) 100%, 0 100%);
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--color-brand-white);
+    box-shadow: 0 12px 28px rgba(249, 146, 40, 0.24);
+    overflow: hidden;
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  }
+
+  .proof-cta-panel a::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    width: 28%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: translateX(-120%) skewX(-22deg);
+    transition: transform 520ms ease;
+  }
+
+  .proof-cta-panel a > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .proof-cta-panel a:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+      0 0 18px rgba(249, 146, 40, 0.58),
+      0 18px 34px rgba(249, 146, 40, 0.34);
+  }
+
+  .proof-cta-panel a:hover::after {
+    transform: translateX(520%) skewX(-22deg);
+  }
+
+  @media (max-width: 1023px) {
+    .projects-proof-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .proof-cta-base,
+    .proof-cta-panel {
+      clip-path: none;
+    }
+
+    .proof-cta-panel {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .proof-cta-panel h2 {
+      padding-left: 0;
+    }
+
+    .proof-cta-panel p {
+      padding-inline: 0;
+    }
+
+    .proof-cta-panel p::before,
+    .proof-cta-panel::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .proof-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-stat + .proof-stat::before {
+      top: 0;
+      width: 100%;
+      height: 1px;
+    }
+  }
+</style>

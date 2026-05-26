@@ -8,6 +8,15 @@ const navItems = [
   { label: "Nosotros", href: "/nosotros" },
   { label: "Contacto", href: "/contacto" },
 ];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const isActivePath = (href: string) => {
+  const normalizedHref = href.replace(/\/$/, "") || "/";
+  return normalizedHref === "/"
+    ? currentPath === "/"
+    : currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+};
 ---
 
 <header class="absolute left-0 top-0 z-50 w-full">
@@ -27,7 +36,7 @@ const navItems = [
             href={item.href}
             class:list={[
               "relative py-2 transition-colors after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:-translate-x-1/2 after:rounded-full after:bg-brand-orange after:transition-all after:duration-200 hover:text-brand-orange hover:after:w-full",
-              item.href === "/" ? "text-brand-orange after:w-full" : "after:w-0",
+              isActivePath(item.href) ? "text-brand-orange after:w-full" : "after:w-0",
             ]}
           >
             {item.label}
@@ -84,6 +93,9 @@ const navItems = [
   .header-phone-cta {
     position: relative;
     isolation: isolate;
+    overflow: hidden;
+    clip-path: polygon(1.2rem 0, 100% 0, calc(100% - 1.2rem) 100%, 0 100%);
+    transition: filter 180ms ease, transform 180ms ease;
   }
 
   .header-phone-cta::before {
@@ -91,14 +103,37 @@ const navItems = [
     position: absolute;
     inset: 0;
     z-index: 0;
-    border-radius: 0.5rem;
     background: var(--color-brand-black);
-    transform: skewX(-30deg);
-    transition: background-color 180ms ease;
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .header-phone-cta::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    z-index: 1;
+    width: 28%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateX(-120%) skewX(-22deg);
+    transition: transform 520ms ease;
   }
 
   .header-phone-cta:hover::before {
     background: var(--color-brand-dark);
+    box-shadow:
+      0 0 16px rgba(249, 146, 40, 0.34),
+      0 16px 30px rgba(0, 0, 0, 0.26);
+  }
+
+  .header-phone-cta:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .header-phone-cta:hover::after {
+    transform: translateX(520%) skewX(-22deg);
   }
 
   @media (max-width: 767px) {
