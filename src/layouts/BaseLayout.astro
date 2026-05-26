@@ -1,4 +1,6 @@
 ---
+import Footer from "../components/Footer.astro";
+import FloatingContactButton from "../components/FloatingContactButton.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -31,5 +33,7 @@ const {
   </head>
   <body class="min-h-screen bg-brand-white text-brand-black antialiased">
     <slot />
+    <FloatingContactButton />
+    <Footer />
   </body>
 </html>

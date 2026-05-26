@@ -1,0 +1,230 @@
+---
+import { Building2, Factory, ShoppingCart, Star } from "lucide-astro";
+
+const sectors = [
+  {
+    icon: ShoppingCart,
+    title: "Retail",
+  },
+  {
+    icon: Building2,
+    title: "Corporativo",
+  },
+  {
+    icon: Factory,
+    title: "Industria",
+  },
+  {
+    icon: Star,
+    title: "Ferias y Eventos",
+  },
+];
+---
+
+<section class="about-sectors-section">
+  <div class="about-sectors-inner">
+    <div class="about-sectors-copy">
+      <h2>Trabajamos en <span>multiples sectores</span></h2>
+      <p>Entendemos tu industria y potenciamos tu marca.</p>
+    </div>
+
+    <div class="about-sectors-grid">
+      {
+        sectors.map(({ icon: Icon, title }) => (
+          <article>
+            <h3>{title}</h3>
+            <Icon size={23} strokeWidth={1.75} aria-hidden="true" />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-sectors-section {
+    position: relative;
+    z-index: 1;
+    flex: 1 0 auto;
+    width: calc(156.25% + 7rem);
+    margin-left: -7rem;
+    overflow: hidden;
+    color: var(--color-brand-black);
+  }
+
+  .about-sectors-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 22% 0%, rgba(255, 255, 255, 0.9), transparent 24rem),
+      linear-gradient(180deg, #f6f6f4 0%, #ececea 100%);
+  }
+
+  .about-sectors-section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 0.12rem;
+    background: linear-gradient(90deg, transparent 0%, rgba(249, 146, 40, 0.48) 12%, var(--color-brand-orange) 50%, rgba(249, 146, 40, 0.48) 88%, transparent 100%);
+  }
+
+  .about-sectors-inner {
+    display: grid;
+    grid-template-columns: 14.4rem minmax(0, 1fr);
+    align-items: center;
+    column-gap: 1.5rem;
+    width: calc((100% - 7rem) * 0.7);
+    min-height: 7.1rem;
+    padding: 1.45rem 1.35rem 1.55rem 7rem;
+  }
+
+  .about-sectors-copy h2 {
+    font-family: var(--font-title);
+    font-size: 1.12rem;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .about-sectors-copy h2 span {
+    color: var(--color-brand-orange);
+  }
+
+  .about-sectors-copy p {
+    margin-top: 0.55rem;
+    max-width: 13rem;
+    font-size: 0.7rem;
+    line-height: 1.45;
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  .about-sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .about-sectors-grid article {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+    min-height: 3.7rem;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.22rem;
+    background: rgba(255, 255, 255, 0.74);
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+  }
+
+  .about-sectors-grid article::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(115deg, transparent 0%, rgba(249, 146, 40, 0.22) 42%, rgba(249, 146, 40, 0.5) 50%, rgba(249, 146, 40, 0.22) 58%, transparent 100%);
+    opacity: 0;
+    transform: translateX(-58%) skewX(-18deg);
+    transition: opacity 180ms ease, transform 620ms ease;
+  }
+
+  .about-sectors-grid article::after {
+    content: "";
+    position: absolute;
+    inset: auto 16% 0;
+    height: 0.13rem;
+    border-radius: 999px;
+    background: var(--color-brand-orange);
+    box-shadow: 0 0 16px rgba(249, 146, 40, 0.76);
+    opacity: 0;
+    transform: scaleX(0.35);
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .about-sectors-grid article:hover {
+    border-color: rgba(249, 146, 40, 0.58);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      0 0 18px rgba(249, 146, 40, 0.34),
+      0 18px 34px rgba(0, 0, 0, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-0.28rem);
+  }
+
+  .about-sectors-grid article:hover::before {
+    opacity: 1;
+    transform: translateX(58%) skewX(-18deg);
+  }
+
+  .about-sectors-grid article:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .about-sectors-grid h3 {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-title);
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.1;
+    transition: color 180ms ease, transform 220ms ease;
+  }
+
+  .about-sectors-grid svg {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    color: rgba(0, 0, 0, 0.42);
+    transition: color 180ms ease, filter 220ms ease, transform 220ms ease;
+  }
+
+  .about-sectors-grid article:hover h3 {
+    color: var(--color-brand-orange);
+    transform: translateX(-0.1rem);
+  }
+
+  .about-sectors-grid article:hover svg {
+    color: var(--color-brand-orange);
+    filter: drop-shadow(0 0 8px rgba(249, 146, 40, 0.55));
+    transform: translateX(0.12rem) scale(1.12) rotate(-4deg);
+  }
+
+  @media (max-width: 1023px) {
+    .about-sectors-section {
+      width: calc(100% + 3rem);
+      margin-left: -1.5rem;
+    }
+
+    .about-sectors-inner {
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+      width: 100%;
+      padding: 1.8rem 1.5rem;
+    }
+
+    .about-sectors-copy p {
+      max-width: 24rem;
+    }
+
+    .about-sectors-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about-sectors-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

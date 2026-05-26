@@ -1,0 +1,252 @@
+---
+import { Instagram, Mail, MessageCircle, Phone, Send, X } from "lucide-astro";
+
+const contactLinks = [
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/573001234567",
+    icon: MessageCircle,
+  },
+  {
+    label: "Correo",
+    href: "mailto:hola@abcvisionintegral.com",
+    icon: Mail,
+  },
+  {
+    label: "Llamar",
+    href: "tel:+573001234567",
+    icon: Phone,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/",
+    icon: Instagram,
+  },
+];
+---
+
+<div class="floating-contact" aria-label="Canales de contacto">
+  <input id="floating-contact-toggle" type="checkbox" />
+
+  <div class="floating-contact-actions">
+    {
+      contactLinks.map(({ label, href, icon: Icon }, index) => (
+        <a
+          href={href}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noreferrer" : undefined}
+          aria-label={label}
+          style={`--item-index: ${index};`}
+        >
+          <span>{label}</span>
+          <Icon size={20} strokeWidth={2.15} aria-hidden="true" />
+        </a>
+      ))
+    }
+  </div>
+
+  <label class="floating-contact-trigger" for="floating-contact-toggle" aria-label="Abrir canales de contacto">
+    <span class="trigger-glow" aria-hidden="true"></span>
+    <Send class="trigger-open" size={25} strokeWidth={2.35} aria-hidden="true" />
+    <X class="trigger-close" size={25} strokeWidth={2.35} aria-hidden="true" />
+  </label>
+</div>
+
+<style>
+  .floating-contact {
+    position: fixed;
+    right: clamp(1rem, 2vw, 2rem);
+    bottom: clamp(1rem, 2vw, 2rem);
+    z-index: 80;
+    display: grid;
+    justify-items: end;
+    pointer-events: none;
+  }
+
+  .floating-contact input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .floating-contact-actions {
+    display: grid;
+    gap: 0.7rem;
+    margin-bottom: 0.85rem;
+    transform: translateY(0.65rem);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .floating-contact-actions a {
+    --item-index: 0;
+    position: relative;
+    display: inline-flex;
+    min-height: 3rem;
+    min-width: 3rem;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.78rem;
+    overflow: hidden;
+    border: 1px solid rgba(249, 146, 40, 0.36);
+    border-radius: 999px;
+    background:
+      linear-gradient(135deg, rgba(25, 25, 25, 0.96), rgba(0, 0, 0, 0.92)),
+      var(--color-brand-black);
+    padding: 0 0.88rem 0 1.05rem;
+    color: var(--color-brand-white);
+    box-shadow:
+      0 0 20px rgba(249, 146, 40, 0.18),
+      0 16px 30px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    transform: translateX(0.6rem) scale(0.94);
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      color 180ms ease,
+      opacity 220ms ease,
+      transform 220ms ease;
+    transition-delay: calc(var(--item-index) * 34ms);
+  }
+
+  .floating-contact-actions a::before {
+    content: "";
+    position: absolute;
+    inset: -60% auto -60% -40%;
+    width: 36%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.44), transparent);
+    transform: translateX(-160%) skewX(-22deg);
+    transition: transform 560ms ease;
+  }
+
+  .floating-contact-actions span,
+  .floating-contact-actions svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .floating-contact-actions span {
+    max-width: 0;
+    overflow: hidden;
+    font-family: var(--font-title);
+    font-size: 0.7rem;
+    font-weight: 800;
+    white-space: nowrap;
+    opacity: 0;
+    transition: max-width 220ms ease, opacity 160ms ease;
+  }
+
+  .floating-contact-actions svg {
+    color: var(--color-brand-orange);
+    filter: drop-shadow(0 0 8px rgba(249, 146, 40, 0.5));
+  }
+
+  .floating-contact-actions a:hover {
+    border-color: rgba(249, 146, 40, 0.9);
+    color: var(--color-brand-orange);
+    box-shadow:
+      0 0 22px rgba(249, 146, 40, 0.42),
+      0 18px 34px rgba(0, 0, 0, 0.32);
+    transform: translateX(-0.2rem) scale(1.03);
+  }
+
+  .floating-contact-actions a:hover::before {
+    transform: translateX(520%) skewX(-22deg);
+  }
+
+  .floating-contact-actions a:hover span {
+    max-width: 6.8rem;
+    opacity: 1;
+  }
+
+  .floating-contact-trigger {
+    position: relative;
+    display: grid;
+    width: 4.1rem;
+    height: 4.1rem;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.32), transparent 1.1rem),
+      linear-gradient(135deg, #f36d07 0%, var(--color-brand-orange) 54%, #c85a00 100%);
+    color: var(--color-brand-white);
+    box-shadow:
+      0 0 0 0.45rem rgba(249, 146, 40, 0.08),
+      0 0 24px rgba(249, 146, 40, 0.55),
+      0 18px 34px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 220ms ease, box-shadow 220ms ease, filter 180ms ease;
+  }
+
+  .trigger-glow {
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(from 90deg, transparent, rgba(255, 255, 255, 0.58), transparent 34%);
+    opacity: 0.6;
+    animation: floating-contact-spin 3.6s linear infinite;
+  }
+
+  .floating-contact-trigger svg {
+    position: absolute;
+    z-index: 1;
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .trigger-close {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.72);
+  }
+
+  .floating-contact-trigger:hover {
+    filter: brightness(1.08);
+    transform: translateY(-0.16rem) scale(1.04);
+    box-shadow:
+      0 0 0 0.55rem rgba(249, 146, 40, 0.1),
+      0 0 30px rgba(249, 146, 40, 0.72),
+      0 20px 38px rgba(0, 0, 0, 0.32);
+  }
+
+  .floating-contact input:checked ~ .floating-contact-actions {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .floating-contact input:checked ~ .floating-contact-actions a {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .floating-contact input:checked ~ .floating-contact-trigger .trigger-open {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.72);
+  }
+
+  .floating-contact input:checked ~ .floating-contact-trigger .trigger-close {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  @keyframes floating-contact-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .floating-contact-trigger {
+      width: 3.65rem;
+      height: 3.65rem;
+    }
+
+    .floating-contact-actions a {
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+    }
+  }
+</style>
