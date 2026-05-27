@@ -8,6 +8,7 @@ const serviceCards = [
     text: "Graficas de gran impacto para exterior e interior con la mas alta calidad.",
     image: "/images/imagen-hero.webp",
     position: "58% center",
+    categories: ["produccion"],
   },
   {
     icon: ScanLine,
@@ -15,6 +16,7 @@ const serviceCards = [
     text: "Impresion directa sobre multiples superficies con acabados premium y gran durabilidad.",
     image: "/images/imagen-hero.webp",
     position: "46% center",
+    categories: ["produccion"],
   },
   {
     icon: Crosshair,
@@ -22,6 +24,7 @@ const serviceCards = [
     text: "Cortes precisos y detalles perfectos en una amplia variedad de materiales.",
     image: "/images/imagen-hero.webp",
     position: "50% center",
+    categories: ["produccion"],
   },
   {
     icon: Truck,
@@ -29,6 +32,7 @@ const serviceCards = [
     text: "Disenamos, producimos y aplicamos la identidad de tu marca en cualquier superficie.",
     image: "/images/imagen-hero.webp",
     position: "100% center",
+    categories: ["branding", "instalacion"],
   },
   {
     icon: ScanLine,
@@ -36,6 +40,7 @@ const serviceCards = [
     text: "Senales que comunican, orientan y fortalecen tu presencia de marca.",
     image: "/images/imagen-hero.webp",
     position: "42% center",
+    categories: ["branding", "espacios", "instalacion"],
   },
   {
     icon: Building2,
@@ -43,6 +48,7 @@ const serviceCards = [
     text: "Disenamos y fabricamos espacios que generan experiencias y atraen miradas.",
     image: "/images/imagen-hero.webp",
     position: "68% center",
+    categories: ["espacios"],
   },
   {
     icon: Shirt,
@@ -50,6 +56,7 @@ const serviceCards = [
     text: "Articulos promocionales que conectan tu marca con las personas.",
     image: "/images/imagen-hero.webp",
     position: "76% center",
+    categories: ["branding"],
   },
   {
     icon: PackageCheck,
@@ -57,6 +64,7 @@ const serviceCards = [
     text: "Entregamos e instalamos con precision y seguridad en todo el pais.",
     image: "/images/imagen-hero.webp",
     position: "92% center",
+    categories: ["instalacion"],
   },
 ];
 ---
@@ -64,8 +72,8 @@ const serviceCards = [
 <section class="services-grid-section relative bg-brand-black px-6 pb-14 pt-10">
   <div class="mx-auto grid max-w-[92rem] gap-4 md:grid-cols-2 xl:grid-cols-4">
     {
-      serviceCards.map(({ icon: Icon, title, text, image, position }) => (
-        <article class="service-card">
+      serviceCards.map(({ icon: Icon, title, text, image, position, categories }) => (
+        <article class="service-card" data-service-category={categories.join(" ")}>
           <img src={image} alt={title} style={`object-position: ${position};`} />
           <div class="service-card-overlay"></div>
 
@@ -99,6 +107,10 @@ const serviceCards = [
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.06),
       0 16px 34px rgba(0, 0, 0, 0.3);
+  }
+
+  .service-card[hidden] {
+    display: none;
   }
 
   .service-card img {
@@ -214,14 +226,44 @@ const serviceCards = [
 
   @media (max-width: 1023px) {
     .services-grid-section {
-      margin-top: -1rem;
-      padding-top: 2.5rem;
+      margin-top: 0;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .service-card {
+      min-height: 14rem;
+    }
+
+    .service-card-content {
+      min-height: 14rem;
+      max-width: 16rem;
     }
   }
 
   @media (max-width: 640px) {
     .services-grid-section {
-      padding-inline: 1rem;
+      padding: 1.4rem 1rem 2.5rem;
+    }
+
+    .service-card {
+      min-height: 13rem;
+      border-radius: 0.45rem;
+    }
+
+    .service-card-content {
+      min-height: 13rem;
+      max-width: 14.5rem;
+      padding: 1rem 1.15rem;
+    }
+
+    .service-card-content h2 {
+      font-size: 0.98rem;
+    }
+
+    .service-card-content p {
+      max-width: 11rem;
+      font-size: 0.68rem;
+      line-height: 1.34;
     }
   }
 </style>

@@ -25,7 +25,7 @@ const benefits = [
 ];
 ---
 
-<section class="services-benefits-section relative bg-brand-gray px-0 py-0 pb-16">
+<section class="services-benefits-section relative bg-brand-gray px-0 py-0">
   <div class="benefits-shell relative mx-auto max-w-[96rem] px-6">
     <div class="benefits-layer benefits-layer-silver"></div>
     <div class="benefits-layer benefits-layer-black"></div>
@@ -51,12 +51,13 @@ const benefits = [
 <style>
   .services-benefits-section {
     background:
+    
       linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 241, 240, 0.98)),
       var(--color-brand-gray);
   }
 
   .benefits-shell {
-    min-height: 9rem;
+    min-height: 5rem;
   }
 
   .benefits-shell::before {
@@ -161,24 +162,46 @@ const benefits = [
   }
 
   @media (max-width: 1023px) {
+    .services-benefits-section {
+      padding: 0;
+    }
+
     .benefits-layer {
       display: none;
     }
 
     .benefits-shell {
       min-height: auto;
+      padding: 0;
+    }
+
+    .benefits-shell::before {
+      left: 0;
+      right: 0;
+      top: 0;
     }
 
     .benefits-panel {
       top: 0;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       clip-path: none;
+      border-left: 0;
+      border-right: 0;
+    }
+
+    .benefit-item {
+      padding: 1rem 1.35rem;
     }
   }
 
   @media (max-width: 640px) {
     .benefits-panel {
       grid-template-columns: 1fr;
+    }
+
+    .benefit-item {
+      min-height: 5.8rem;
+      padding: 1rem 1.15rem;
     }
 
     .benefit-item + .benefit-item::before {

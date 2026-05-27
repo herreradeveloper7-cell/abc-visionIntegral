@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import AboutHeroSection from "../components/AboutHeroSection.astro";
-import AboutContactPanel from "../components/AboutContactPanel.astro";
 import AboutWhyChooseSection from "../components/AboutWhyChooseSection.astro";
 import AboutSectorsSection from "../components/AboutSectorsSection.astro";
 ---
@@ -13,63 +12,18 @@ import AboutSectorsSection from "../components/AboutSectorsSection.astro";
 >
   <Header />
   <main class="about-page bg-brand-white">
-    <section class="about-layout">
-      <div class="about-left">
-        <AboutHeroSection />
-        <AboutWhyChooseSection />
-        <AboutSectorsSection />
-      </div>
-
-      <div class="about-contact-slot">
-        <AboutContactPanel />
-      </div>
-    </section>
+    <AboutHeroSection />
+    <AboutWhyChooseSection />
+    <AboutSectorsSection />
   </main>
 </BaseLayout>
 
 <style>
-  .about-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 64%) minmax(26rem, 36%);
-    align-items: start;
-  }
-
-  .about-left {
-    position: relative;
-    grid-column: 1;
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    padding: 0 0 0 7rem;
-    overflow: visible;
+  .about-page {
+    overflow: hidden;
     background:
       radial-gradient(circle at 2rem 13rem, rgba(5, 49, 60, 0.1) 0 1px, transparent 1px),
       var(--color-brand-white);
     background-size: 0.8rem 0.8rem;
-  }
-
-  .about-contact-slot {
-    position: relative;
-    z-index: 3;
-    grid-column: 2;
-    align-self: stretch;
-    min-width: 0;
-  }
-
-  @media (max-width: 1023px) {
-    .about-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .about-left {
-      grid-column: auto;
-      display: block;
-      min-height: auto;
-      padding: 7rem 1.5rem 3rem;
-    }
-
-    .about-contact-slot {
-      grid-column: auto;
-    }
   }
 </style>

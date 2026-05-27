@@ -16,6 +16,13 @@
     font-family: var(--font-body);
     background: var(--color-brand-white);
     color: var(--color-brand-black);
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   h1,

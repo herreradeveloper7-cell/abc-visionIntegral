@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Phone } from "lucide-astro";
+import { ArrowRight, Menu, Phone, X } from "lucide-astro";
 
 const navItems = [
   { label: "Inicio", href: "/" },
@@ -20,7 +20,7 @@ const isActivePath = (href: string) => {
 ---
 
 <header class="absolute left-0 top-0 z-50 w-full">
-  <div class="flex h-24 items-start pl-10 md:pl-16 lg:pl-24">
+  <div class="header-shell flex h-24 items-start pl-5 md:pl-16 lg:pl-24">
     <a href="/" class="relative z-10 mt-4 flex w-36 shrink-0 items-start md:w-44 lg:w-52">
       <img
         src="/images/logo-abc.png"
@@ -45,10 +45,10 @@ const isActivePath = (href: string) => {
       }
     </nav>
 
-    <div class="header-nav-panel ml-16 flex min-w-0 flex-1 items-center justify-end bg-brand-white/95 px-6 py-4 pr-8 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur md:ml-20 md:pr-14 lg:ml-24 lg:pr-20 lg:pl-10">
+    <div class="header-nav-panel ml-8 flex min-w-0 flex-1 items-center justify-end gap-3 bg-brand-white/95 px-4 py-4 pr-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur md:ml-20 md:pr-14 lg:ml-24 lg:pr-20 lg:pl-10">
       <a
         href="tel:+573001234567"
-        class="header-phone-cta inline-flex h-12 items-center gap-3 px-8 font-title text-xs font-bold text-brand-white transition-colors"
+        class="header-phone-cta inline-flex h-11 items-center gap-3 px-5 font-title text-xs font-bold text-brand-white transition-colors sm:h-12 sm:px-8"
       >
         <span class="relative z-10 grid size-5 place-items-center rounded-full text-brand-orange">
           <Phone size={16} strokeWidth={2.5} aria-hidden="true" />
@@ -56,9 +56,80 @@ const isActivePath = (href: string) => {
         <span class="relative z-10 hidden whitespace-nowrap sm:inline">+51 987 312 602</span>
         <ArrowRight size={16} strokeWidth={2.5} class="relative z-10 text-brand-orange" aria-hidden="true" />
       </a>
+
+      <button
+        class="mobile-menu-toggle relative z-20 grid size-11 place-items-center rounded-sm border border-black/10 bg-white font-title text-brand-black shadow-[0_10px_24px_rgba(0,0,0,0.08)] lg:hidden"
+        type="button"
+        aria-label="Abrir menu de navegacion"
+        aria-expanded="false"
+        data-menu-toggle
+      >
+        <span class="menu-icon menu-open-icon" data-menu-open-icon>
+          <Menu size={22} strokeWidth={2.4} aria-hidden="true" />
+        </span>
+        <span class="menu-icon menu-close-icon" data-menu-close-icon hidden>
+          <X size={22} strokeWidth={2.4} aria-hidden="true" />
+        </span>
+      </button>
     </div>
   </div>
+
+  <div class="mobile-menu lg:hidden" data-mobile-menu hidden>
+    <nav aria-label="Navegacion movil">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "mobile-menu-link",
+              isActivePath(item.href) && "is-active",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+  const openIcon = document.querySelector<HTMLElement>("[data-menu-open-icon]");
+  const closeIcon = document.querySelector<HTMLElement>("[data-menu-close-icon]");
+  const menuLinks = menu?.querySelectorAll<HTMLAnchorElement>("a");
+
+  const setMenuOpen = (nextOpen: boolean) => {
+    if (!toggle || !menu || !openIcon || !closeIcon) return;
+
+    toggle.setAttribute("aria-expanded", String(nextOpen));
+    openIcon.hidden = nextOpen;
+    closeIcon.hidden = !nextOpen;
+
+    if (nextOpen) {
+      menu.hidden = false;
+      window.requestAnimationFrame(() => menu.classList.add("is-open"));
+      return;
+    }
+
+    menu.classList.remove("is-open");
+    window.setTimeout(() => {
+      if (toggle.getAttribute("aria-expanded") === "false") {
+        menu.hidden = true;
+      }
+    }, 220);
+  };
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    setMenuOpen(!isOpen);
+  });
+
+  menuLinks?.forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+</script>
 
 <style>
   .header-nav-panel {
@@ -72,6 +143,10 @@ const isActivePath = (href: string) => {
     left: 50vw;
     transform: translateX(-50%);
     z-index: 30;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
   }
 
   .header-nav-panel::before {
@@ -136,10 +211,135 @@ const isActivePath = (href: string) => {
     transform: translateX(520%) skewX(-22deg);
   }
 
+  .menu-icon {
+    display: grid;
+    place-items: center;
+  }
+
+  .menu-icon[hidden] {
+    display: none;
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 5.2rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 40;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.35rem;
+    background:
+      linear-gradient(135deg, rgba(31, 31, 31, 0.97), rgba(5, 5, 5, 0.98));
+    box-shadow:
+      0 0 26px rgba(249, 146, 40, 0.18),
+      0 24px 54px rgba(0, 0, 0, 0.32);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.6rem) scale(0.98);
+    transform-origin: top right;
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .mobile-menu nav {
+    display: grid;
+    padding: 0.55rem;
+  }
+
+  .mobile-menu-link {
+    position: relative;
+    display: flex;
+    min-height: 2.9rem;
+    align-items: center;
+    padding: 0 1rem;
+    border-radius: 0.25rem;
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.78);
+    transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  .mobile-menu-link::before {
+    content: "";
+    position: absolute;
+    left: 0.2rem;
+    top: 26%;
+    width: 0.12rem;
+    height: 48%;
+    border-radius: 999px;
+    background: var(--color-brand-orange);
+    opacity: 0;
+    box-shadow: 0 0 12px rgba(249, 146, 40, 0.55);
+    transition: opacity 180ms ease;
+  }
+
+  .mobile-menu-link:hover,
+  .mobile-menu-link.is-active {
+    color: var(--color-brand-white);
+    background: rgba(249, 146, 40, 0.12);
+    transform: translateX(0.15rem);
+  }
+
+  .mobile-menu-link:hover::before,
+  .mobile-menu-link.is-active::before {
+    opacity: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .header-nav-items {
+      display: none !important;
+    }
+
+    .mobile-menu-toggle {
+      display: grid;
+    }
+  }
+
   @media (max-width: 767px) {
+    .header-shell {
+      height: 5rem;
+    }
+
+    .header-shell > a {
+      width: 8.2rem;
+      margin-top: 0.65rem;
+    }
+
+    .header-nav-panel {
+      margin-left: 1.1rem;
+      padding: 0.75rem 0.8rem 0.75rem 1.3rem;
+    }
+
     .header-nav-panel::before {
       left: -2rem;
       width: 4rem;
+    }
+
+    .header-phone-cta {
+      width: 3.1rem;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .header-phone-cta > svg {
+      display: none;
     }
   }
 </style>

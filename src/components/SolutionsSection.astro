@@ -16,7 +16,7 @@ const solutions = [
 ---
 
 <section class="solutions-section relative w-full bg-brand-white px-0 pb-18 pt-8">
-  <div class="solutions-shell mx-auto grid max-w-[96rem] items-center gap-10 px-8 py-9 lg:grid-cols-[0.9fr_1.7fr] lg:px-16">
+  <div class="solutions-shell mx-auto grid max-w-[96rem] items-center gap-10 px-8 py-9 pt-20 lg:grid-cols-[0.9fr_1.7fr] lg:px-16">
     <div class="solutions-copy">
       <p class="mb-4 font-title text-xs font-extrabold uppercase tracking-wide text-brand-orange">
         Soluciones visuales integrales
@@ -116,7 +116,46 @@ const solutions = [
   @media (max-width: 1023px) {
     .solutions-section {
       margin-top: 0;
-      padding-top: 2rem;
+      padding-top: 0;
+      padding-bottom: 3.5rem;
+    }
+
+    .solutions-shell {
+      gap: 1.75rem;
+      padding: 2.8rem clamp(1.5rem, 6vw, 4rem) 0;
+    }
+
+    .solutions-copy h2 {
+      max-width: 34rem;
+      font-size: 2rem;
+    }
+
+    .solution-card {
+      min-height: 12rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .solutions-shell {
+      padding: 2.3rem 1rem 0;
+    }
+
+    .solutions-copy h2 {
+      font-size: 1.7rem;
+    }
+
+    .solutions-cards {
+      gap: 1rem;
+    }
+
+    .solution-card {
+      min-height: 11.5rem;
+    }
+
+    .solution-card h3 {
+      max-width: 12rem;
+      padding: 1.35rem 1rem;
+      font-size: 1rem;
     }
   }
 </style>

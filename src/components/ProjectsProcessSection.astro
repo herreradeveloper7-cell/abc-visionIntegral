@@ -194,9 +194,25 @@ const steps = [
   }
 
   @media (max-width: 1180px) {
+    .projects-process-section {
+      height: auto;
+      overflow: hidden;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .process-shell {
+      min-height: auto;
+      margin-top: 0;
+      padding: 0;
+    }
+
     .process-panel {
+      top: 0;
       grid-template-columns: 1fr;
       clip-path: none;
+      border-left: 0;
+      border-right: 0;
     }
 
     .process-base {
@@ -204,7 +220,7 @@ const steps = [
     }
 
     .process-intro {
-      padding-left: 2rem;
+      padding: 1.35rem 1.5rem 1rem;
     }
 
     .process-intro::after {
@@ -216,15 +232,42 @@ const steps = [
     .process-steps {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .process-step {
+      padding: 1rem 1.35rem;
+    }
   }
 
   @media (max-width: 560px) {
     .projects-process-section {
-      margin-top: -2rem;
+      margin-top: 0;
     }
 
     .process-steps {
       grid-template-columns: 1fr;
+    }
+
+    .process-panel {
+      min-height: auto;
+    }
+
+    .process-intro h2 {
+      font-size: 1.45rem;
+    }
+
+    .process-step {
+      min-height: 5.7rem;
+      padding: 1rem 1.2rem;
+    }
+
+    .process-step + .process-step::before {
+      content: "";
+      position: absolute;
+      left: 1.2rem;
+      right: 1.2rem;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
     }
 
     .step-arrow {

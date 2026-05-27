@@ -2,11 +2,11 @@
 import { Boxes, Cog, Grid2X2, PackageCheck, Truck } from "lucide-astro";
 
 const categories = [
-  { icon: Grid2X2, label: "Todos los servicios", active: true },
-  { icon: Cog, label: "Produccion" },
-  { icon: PackageCheck, label: "Branding" },
-  { icon: Boxes, label: "Espacios" },
-  { icon: Truck, label: "Instalacion" },
+  { icon: Grid2X2, label: "Todos los servicios", value: "all", active: true },
+  { icon: Cog, label: "Produccion", value: "produccion" },
+  { icon: PackageCheck, label: "Branding", value: "branding" },
+  { icon: Boxes, label: "Espacios", value: "espacios" },
+  { icon: Truck, label: "Instalacion", value: "instalacion" },
 ];
 ---
 
@@ -17,8 +17,13 @@ const categories = [
 
     <div class="category-panel">
       {
-        categories.map(({ icon: Icon, label, active }) => (
-          <button class:list={["category-button", active && "is-active"]} type="button">
+        categories.map(({ icon: Icon, label, value, active }) => (
+          <button
+            class:list={["category-button", active && "is-active"]}
+            type="button"
+            data-service-filter={value}
+            aria-pressed={active ? "true" : "false"}
+          >
             <Icon size={20} strokeWidth={2} aria-hidden="true" />
             <span>{label}</span>
           </button>
@@ -27,6 +32,31 @@ const categories = [
     </div>
   </div>
 </section>
+
+<script>
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>("[data-service-filter]");
+  const serviceCards = document.querySelectorAll<HTMLElement>("[data-service-category]");
+
+  const applyServiceFilter = (filter: string) => {
+    filterButtons.forEach((button) => {
+      const isActive = button.dataset.serviceFilter === filter;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    serviceCards.forEach((card) => {
+      const categories = (card.dataset.serviceCategory ?? "").split(" ");
+      const shouldShow = filter === "all" || categories.includes(filter);
+      card.hidden = !shouldShow;
+    });
+  };
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      applyServiceFilter(button.dataset.serviceFilter ?? "all");
+    });
+  });
+</script>
 
 <style>
   .services-categories {
@@ -109,10 +139,14 @@ const categories = [
     width: calc(100% + 1rem);
     color: var(--color-brand-white);
     background: linear-gradient(90deg, #f36d07 0%, var(--color-brand-orange) 100%);
-    clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 100%, 1.15rem 100%);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.12),
       0 0 26px rgba(249, 146, 40, 0.28);
+  }
+
+  .category-button.is-active:first-child {
+    clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 100%, 0 100%);
   }
 
   .category-button.is-active::after {
@@ -150,11 +184,17 @@ const categories = [
 
   @media (max-width: 1023px) {
     .services-categories {
-      margin-top: -2rem;
+      margin-top: 0;
+      padding: 0;
     }
 
     .category-layer {
       display: none;
+    }
+
+    .services-categories-inner {
+      min-height: auto;
+      padding: 0;
     }
 
     .category-panel {
@@ -163,12 +203,46 @@ const categories = [
       width: 100%;
       margin-left: 0;
       clip-path: none;
+      border-left: 0;
+      border-right: 0;
+      background: linear-gradient(180deg, rgba(24, 24, 24, 0.98), rgba(5, 5, 5, 0.98));
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 16px 34px rgba(0, 0, 0, 0.2);
+    }
+
+    .category-button {
+      min-height: 3.15rem;
+    }
+
+    .category-button.is-active {
+      width: 100%;
+      clip-path: none;
+    }
+
+    .category-button.is-active:first-child {
+      clip-path: none;
     }
   }
 
   @media (max-width: 640px) {
     .category-panel {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .category-button:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .category-button {
+      min-height: 2.9rem;
+      gap: 0.55rem;
+      padding: 0 0.7rem;
+      font-size: 0.66rem;
+    }
+
+    .category-button + .category-button::before {
+      display: none;
     }
   }
 </style>

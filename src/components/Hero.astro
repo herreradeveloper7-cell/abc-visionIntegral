@@ -68,7 +68,7 @@ const services = [
 ];
 ---
 
-<section class:list={["hero-section relative overflow-hidden bg-brand-white pt-20", compact ? "pb-10" : "pb-16"]}>
+<section class:list={["hero-section relative overflow-hidden bg-brand-white pt-20", showPanels ? "pb-0" : compact ? "pb-10" : "pb-16"]}>
   <div class:list={["hero-grid", compact ? "min-h-120 lg:min-h-132" : "min-h-148 lg:min-h-160"]}>
     <div class="hero-copy relative z-10 flex -translate-y-6 items-center justify-end px-8 py-10 pt-16 md:px-16 md:pt-0 lg:pl-24 lg:pr-0">
       <div class="relative max-w-xl md:pl-10">
@@ -117,18 +117,7 @@ const services = [
   {
     showPanels && (
       <>
-        <div class="service-strip relative z-30 -mt-45 ml-auto mr-0 w-[50vw] pl-4 pr-0">
-          <div class="service-panel relative -top-2 z-20 w-full px-10 py-2">
-            {services.map(({ icon: Icon, label }) => (
-              <article class="service-item">
-                <Icon size={22} strokeWidth={1.7} aria-hidden="true" />
-                <span>{label}</span>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div class="feature-strip relative z-20 ml-auto mr-0 -mt-2 w-[92vw] pl-4 pr-0">
+        <div class="feature-strip relative z-20 ml-auto mr-0 w-[92vw] pl-4 pr-0">
           <div class="feature-base">
             <div class="feature-panel">
               {features.map(({ icon: Icon, title, text }) => (
@@ -156,13 +145,15 @@ const services = [
     grid-template-columns: minmax(0, 44%) minmax(0, 56%);
     align-items: stretch;
     overflow: hidden;
+    max-width: 100%;
   }
 
   .hero-visual {
     margin-left: -5rem;
     min-height: 100%;
+    min-width: 0;
     background: var(--color-brand-black);
-    clip-path: polygon(30rem 0, 100% 0, 100% 100%, 0rem 100%);
+    clip-path: polygon(clamp(12rem, 24vw, 30rem) 0, 100% 0, 100% 100%, 0rem 100%);
   }
 
   .hero-copy {
@@ -247,20 +238,6 @@ const services = [
       0 16px 30px rgba(0, 0, 0, 0.3);
   }
 
-  .service-panel {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 7.8rem));
-    justify-content: end;
-    min-height: 3.9rem;
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    background: rgba(4, 4, 4, 0.82);
-    clip-path: polygon(2.4rem 0, 100% 0, 100% 100%, 0 100%);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-      0 18px 34px rgba(0, 0, 0, 0.26);
-    backdrop-filter: blur(4px);
-  }
 
   .service-item {
     position: relative;
@@ -290,6 +267,10 @@ const services = [
     font-weight: 800;
     line-height: 1;
     text-transform: uppercase;
+  }
+
+  .feature-strip {
+    margin-top: clamp(-7.25rem, -6vw, -4.85rem);
   }
 
   .feature-base {
@@ -357,27 +338,44 @@ const services = [
   }
 
   @media (max-width: 1023px) {
+    .hero-section {
+      padding-top: 5.4rem;
+    }
+
     .hero-grid {
       grid-template-columns: 1fr;
+      min-height: auto;
     }
 
     .hero-visual {
       margin-left: 0;
-      min-height: 22rem;
+      min-height: clamp(18rem, 48vw, 25rem);
       clip-path: none;
+    }
+
+    .hero-copy {
+      transform: none;
+      justify-content: flex-start;
+      padding: 4.2rem clamp(1.5rem, 6vw, 4rem) 2.4rem;
+    }
+
+    .hero-copy > div {
+      max-width: 38rem;
+      padding-left: 0;
     }
 
     .feature-strip {
-      margin-top: 1.5rem;
+      width: 100%;
+      margin-top: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
 
-    .service-strip {
-      margin-top: 1.5rem;
-    }
-
-    .service-panel {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      clip-path: none;
+    .feature-base {
+      padding: 0;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 -10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .feature-base,
@@ -387,20 +385,50 @@ const services = [
 
     .feature-panel {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-left: 0;
+      border-right: 0;
+    }
+
+    .feature-item {
+      padding: 1.1rem 1.4rem;
     }
   }
 
   @media (max-width: 640px) {
-    .hero-actions {
-      flex-wrap: wrap;
+    .hero-section {
+      padding-top: 4.9rem;
     }
 
-    .service-panel {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .hero-copy {
+      padding: 2.4rem 1.2rem 1.8rem;
+    }
+
+    .hero-copy h1 {
+      font-size: 2rem;
+    }
+
+    .hero-copy p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .hero-button {
+      width: 100%;
+      min-height: 2.85rem;
+      justify-content: center;
     }
 
     .feature-panel {
       grid-template-columns: 1fr;
+    }
+
+    .feature-strip {
+      margin-top: 0;
     }
 
     .feature-item + .feature-item::before {
@@ -408,6 +436,16 @@ const services = [
       width: 100%;
       height: 1px;
       transform: none;
+    }
+
+    .feature-item {
+      min-height: 5.7rem;
+      padding: 1rem 1.2rem;
+    }
+
+    .feature-icon {
+      width: 2.65rem;
+      height: 2.65rem;
     }
   }
 </style>

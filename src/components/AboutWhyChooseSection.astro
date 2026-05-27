@@ -52,8 +52,8 @@ const reasons = [
   .about-why-section {
     position: relative;
     z-index: 1;
-    width: calc(156.25% + 7rem);
-    margin-left: -7rem;
+    width: 100%;
+    margin-left: 0;
     overflow: hidden;
     color: var(--color-brand-white);
   }
@@ -84,16 +84,17 @@ const reasons = [
 
   .about-why-inner {
     display: grid;
-    grid-template-columns: 10.5rem minmax(0, 1fr);
+    grid-template-columns: 12rem minmax(0, 1fr);
     align-items: center;
-    column-gap: 0.9rem;
-    width: calc((100% - 7rem) * 0.7);
-    min-height: 10.8rem;
-    padding: 1.65rem 1.35rem 1.8rem 7rem;
+    column-gap: 2rem;
+    width: min(100%, 112rem);
+    min-height: 10rem;
+    margin: 0 auto;
+    padding: 1.55rem 7rem 1.7rem;
   }
 
   .about-why-copy {
-    max-width: 10.5rem;
+    max-width: 12rem;
   }
 
   .about-why-copy h2 {
@@ -109,7 +110,7 @@ const reasons = [
 
   .about-why-copy p {
     margin-top: 0.75rem;
-    max-width: 9.5rem;
+    max-width: 10.5rem;
     font-size: 0.7rem;
     line-height: 1.48;
     color: rgba(255, 255, 255, 0.68);
@@ -133,7 +134,7 @@ const reasons = [
     align-items: center;
     align-content: center;
     min-width: 0;
-    padding: 1.2rem 2rem 1rem;
+    padding: 1.15rem 1.25rem 1rem;
   }
 
   .about-why-panel article > div {
@@ -183,14 +184,15 @@ const reasons = [
 
   @media (max-width: 1279px) {
     .about-why-inner {
-      padding-right: 1.5rem;
+      padding-right: 3rem;
+      padding-left: 3rem;
     }
   }
 
   @media (max-width: 1023px) {
     .about-why-section {
-      width: calc(100% + 3rem);
-      margin-left: -1.5rem;
+      width: 100%;
+      margin-left: 0;
     }
 
     .about-why-inner {
