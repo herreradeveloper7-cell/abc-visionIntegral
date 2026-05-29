@@ -1,93 +1,45 @@
 ---
 import { ArrowRight, Building2, Crosshair, PackageCheck, Printer, ScanLine, Shirt, Truck } from "lucide-astro";
+import { services, type ServiceIcon } from "../data/services";
 
-const serviceCards = [
-  {
-    icon: Printer,
-    title: "Impresion de Gran Formato",
-    text: "Graficas de gran impacto para exterior e interior con la mas alta calidad.",
-    image: "/images/imagen-hero.webp",
-    position: "58% center",
-    categories: ["produccion"],
-  },
-  {
-    icon: ScanLine,
-    title: "Impresion UV",
-    text: "Impresion directa sobre multiples superficies con acabados premium y gran durabilidad.",
-    image: "/images/imagen-hero.webp",
-    position: "46% center",
-    categories: ["produccion"],
-  },
-  {
-    icon: Crosshair,
-    title: "Corte Laser y Troquelado",
-    text: "Cortes precisos y detalles perfectos en una amplia variedad de materiales.",
-    image: "/images/imagen-hero.webp",
-    position: "50% center",
-    categories: ["produccion"],
-  },
-  {
-    icon: Truck,
-    title: "Branding Corporativo y Vehicular",
-    text: "Disenamos, producimos y aplicamos la identidad de tu marca en cualquier superficie.",
-    image: "/images/imagen-hero.webp",
-    position: "100% center",
-    categories: ["branding", "instalacion"],
-  },
-  {
-    icon: ScanLine,
-    title: "Senalizacion Industrial y Comercial",
-    text: "Senales que comunican, orientan y fortalecen tu presencia de marca.",
-    image: "/images/imagen-hero.webp",
-    position: "42% center",
-    categories: ["branding", "espacios", "instalacion"],
-  },
-  {
-    icon: Building2,
-    title: "Stands y Mobiliario Comercial",
-    text: "Disenamos y fabricamos espacios que generan experiencias y atraen miradas.",
-    image: "/images/imagen-hero.webp",
-    position: "68% center",
-    categories: ["espacios"],
-  },
-  {
-    icon: Shirt,
-    title: "Merchandising",
-    text: "Articulos promocionales que conectan tu marca con las personas.",
-    image: "/images/imagen-hero.webp",
-    position: "76% center",
-    categories: ["branding"],
-  },
-  {
-    icon: PackageCheck,
-    title: "Logistica e Instalacion",
-    text: "Entregamos e instalamos con precision y seguridad en todo el pais.",
-    image: "/images/imagen-hero.webp",
-    position: "92% center",
-    categories: ["instalacion"],
-  },
-];
+const serviceIcons: Record<ServiceIcon, typeof Building2> = {
+  building2: Building2,
+  crosshair: Crosshair,
+  packageCheck: PackageCheck,
+  printer: Printer,
+  scanLine: ScanLine,
+  shirt: Shirt,
+  truck: Truck,
+};
 ---
 
 <section class="services-grid-section relative bg-brand-black px-6 pb-14 pt-10">
   <div class="mx-auto grid max-w-[92rem] gap-4 md:grid-cols-2 xl:grid-cols-4">
     {
-      serviceCards.map(({ icon: Icon, title, text, image, position, categories }) => (
-        <article class="service-card" data-service-category={categories.join(" ")}>
-          <img src={image} alt={title} style={`object-position: ${position};`} />
-          <div class="service-card-overlay"></div>
+      services.map(({ icon, slug, title, shortText, image, position, categories }, index) => {
+        const Icon = serviceIcons[icon];
 
-          <div class="service-card-content">
-            <Icon size={31} strokeWidth={1.8} aria-hidden="true" />
-            <h2>{title}</h2>
-            <p>{text}</p>
-            <a href="/contacto">
-              <span>Conocer mas</span>
-              <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
-            </a>
-          </div>
-        </article>
-      ))
+        return (
+          <article
+            class="service-card"
+            data-service-category={categories.join(" ")}
+            style={`--service-card-delay: ${index * 120}ms;`}
+          >
+            <img src={image} alt={title} style={`object-position: ${position};`} />
+            <div class="service-card-overlay"></div>
+
+            <div class="service-card-content">
+              <Icon size={31} strokeWidth={1.8} aria-hidden="true" />
+              <h2>{title}</h2>
+              <p>{shortText}</p>
+              <a href={`/servicios/${slug}`}>
+                <span>Conocer mas</span>
+                <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        );
+      })
     }
   </div>
 </section>
@@ -107,10 +59,106 @@ const serviceCards = [
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.06),
       0 16px 34px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    filter: blur(12px) saturate(0.78);
+    transform: translateY(2.15rem) scale(0.94);
+    transform-origin: center bottom;
+    animation: service-card-enter 920ms cubic-bezier(0.16, 1, 0.3, 1) var(--service-card-delay) forwards;
+    will-change: opacity, filter, transform;
+  }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      linear-gradient(115deg, transparent 0%, rgba(249, 146, 40, 0.12) 36%, rgba(249, 146, 40, 0.7) 50%, rgba(249, 146, 40, 0.12) 64%, transparent 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 34%);
+    opacity: 0;
+    transform: translateX(-72%) skewX(-18deg);
+  }
+
+  .service-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 14% 0;
+    z-index: 2;
+    height: 0.14rem;
+    border-radius: 999px;
+    pointer-events: none;
+    background: var(--color-brand-orange);
+    box-shadow:
+      0 0 14px rgba(249, 146, 40, 0.88),
+      0 0 32px rgba(249, 146, 40, 0.52);
+    opacity: 0;
+    transform: scaleX(0.25);
+    transform-origin: center;
+  }
+
+  .service-card::before {
+    animation: service-card-scan 900ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--service-card-delay) + 160ms) both;
+  }
+
+  .service-card::after {
+    animation: service-card-energy-line 760ms ease calc(var(--service-card-delay) + 220ms) both;
   }
 
   .service-card[hidden] {
     display: none;
+  }
+
+  @keyframes service-card-enter {
+    0% {
+      opacity: 0;
+      filter: blur(12px) saturate(0.78);
+      transform: translateY(2.15rem) scale(0.94);
+    }
+
+    58% {
+      opacity: 1;
+      filter: blur(2px) saturate(1.05);
+    }
+
+    100% {
+      opacity: 1;
+      filter: blur(0) saturate(1);
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes service-card-scan {
+    0% {
+      opacity: 0;
+      transform: translateX(-72%) skewX(-18deg);
+    }
+
+    18% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(72%) skewX(-18deg);
+    }
+  }
+
+  @keyframes service-card-energy-line {
+    0% {
+      opacity: 0;
+      transform: scaleX(0.25);
+    }
+
+    55% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    100% {
+      opacity: 0.82;
+      transform: scaleX(0.82);
+    }
   }
 
   .service-card img {
@@ -264,6 +312,21 @@ const serviceCards = [
       max-width: 11rem;
       font-size: 0.68rem;
       line-height: 1.34;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-card::before,
+    .service-card::after {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    .service-card {
+      opacity: 1;
+      filter: none;
+      transform: none;
     }
   }
 </style>

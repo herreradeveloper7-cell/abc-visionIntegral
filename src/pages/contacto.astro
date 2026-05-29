@@ -40,11 +40,6 @@ import AboutContactPanel from "../components/AboutContactPanel.astro";
               </div>
             </article>
           </div>
-
-          <a class="contact-whatsapp" href="https://wa.me/573001234567" target="_blank" rel="noreferrer">
-            <span>Contactar por WhatsApp</span>
-            <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-          </a>
         </div>
       </div>
 
@@ -169,54 +164,6 @@ import AboutContactPanel from "../components/AboutContactPanel.astro";
     color: rgba(0, 0, 0, 0.62);
   }
 
-  .contact-whatsapp {
-    position: relative;
-    display: inline-flex;
-    width: max-content;
-    min-height: 2.75rem;
-    align-items: center;
-    gap: 1.35rem;
-    overflow: hidden;
-    margin-top: 1.35rem;
-    border-radius: 0.32rem;
-    background: linear-gradient(90deg, #f36d07 0%, var(--color-brand-orange) 100%);
-    padding: 0 1.35rem;
-    font-family: var(--font-title);
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--color-brand-white);
-    transition: box-shadow 180ms ease, filter 180ms ease, transform 180ms ease;
-  }
-
-  .contact-whatsapp::after {
-    content: "";
-    position: absolute;
-    top: -35%;
-    left: -35%;
-    width: 28%;
-    height: 170%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    transform: translateX(-120%) skewX(-22deg);
-    transition: transform 520ms ease;
-  }
-
-  .contact-whatsapp > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .contact-whatsapp:hover {
-    filter: brightness(1.08);
-    box-shadow:
-      0 0 18px rgba(249, 146, 40, 0.58),
-      0 18px 34px rgba(249, 146, 40, 0.28);
-    transform: translateY(-0.12rem);
-  }
-
-  .contact-whatsapp:hover::after {
-    transform: translateX(520%) skewX(-22deg);
-  }
-
   .contact-form-slot {
     min-width: 0;
     margin-left: clamp(1.5rem, 2.6vw, 3.5rem);
@@ -267,11 +214,6 @@ import AboutContactPanel from "../components/AboutContactPanel.astro";
 
     .contact-notes {
       grid-template-columns: 1fr;
-    }
-
-    .contact-whatsapp {
-      width: 100%;
-      justify-content: center;
     }
   }
 </style>

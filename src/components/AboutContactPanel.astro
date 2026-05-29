@@ -11,7 +11,7 @@ import { ArrowRight, Mail, MapPin, Phone } from "lucide-astro";
       <h2>Cuentanos tu idea y te ayudaremos a hacerla realidad.</h2>
     </div>
 
-    <form class="contact-form">
+    <form class="contact-form" data-whatsapp-form>
       <div class="form-grid">
         <input type="text" name="name" placeholder="Nombre completo" aria-label="Nombre completo" />
         <input type="text" name="company" placeholder="Empresa" aria-label="Empresa" />
@@ -53,6 +53,37 @@ import { ArrowRight, Mail, MapPin, Phone } from "lucide-astro";
     <h3>Hacemos que tu marca <span>se vea. Se sienta. Se recuerde.</span></h3>
   </div>
 </aside>
+
+<script>
+  const whatsappForm = document.querySelector<HTMLFormElement>("[data-whatsapp-form]");
+  const whatsappNumber = "51987312602";
+
+  whatsappForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(whatsappForm);
+    const name = String(formData.get("name") || "").trim();
+    const company = String(formData.get("company") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+
+    const whatsappMessage = [
+      "Hola ABC Vision Integral, quiero solicitar una asesoria.",
+      "",
+      name && `Nombre: ${name}`,
+      company && `Empresa: ${company}`,
+      email && `Correo: ${email}`,
+      phone && `Telefono / WhatsApp: ${phone}`,
+      message && `Proyecto: ${message}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  });
+</script>
 
 <style>
   .about-contact {
