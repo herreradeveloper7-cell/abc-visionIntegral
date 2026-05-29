@@ -1,5 +1,5 @@
 ---
-import { Instagram, Mail, MessageCircle, Phone, Send, X } from "lucide-astro";
+import { ArrowUp, Instagram, MessageCircle, Send, X } from "lucide-astro";
 
 const contactLinks = [
   {
@@ -16,6 +16,10 @@ const contactLinks = [
 ---
 
 <div class="floating-contact" aria-label="Canales de contacto">
+  <button class="scroll-top-button" type="button" aria-label="Volver al inicio" data-scroll-top>
+    <ArrowUp size={21} strokeWidth={2.35} aria-hidden="true" />
+  </button>
+
   <input id="floating-contact-toggle" type="checkbox" />
 
   <div class="floating-contact-actions">
@@ -42,6 +46,25 @@ const contactLinks = [
   </label>
 </div>
 
+<script>
+  const scrollTopButton = document.querySelector<HTMLButtonElement>("[data-scroll-top]");
+
+  const updateScrollTopButton = () => {
+    if (!scrollTopButton) return;
+    scrollTopButton.classList.toggle("is-visible", window.scrollY > 280);
+  };
+
+  scrollTopButton?.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  updateScrollTopButton();
+  window.addEventListener("scroll", updateScrollTopButton, { passive: true });
+</script>
+
 <style>
   .floating-contact {
     position: fixed;
@@ -57,6 +80,70 @@ const contactLinks = [
     position: absolute;
     opacity: 0;
     pointer-events: none;
+  }
+
+  .scroll-top-button {
+    position: absolute;
+    right: 0.52rem;
+    bottom: calc(4.1rem + 0.75rem);
+    display: grid;
+    width: 3.05rem;
+    height: 3.05rem;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(249, 146, 40, 0.38);
+    border-radius: 999px;
+    background:
+      linear-gradient(135deg, rgba(24, 24, 24, 0.96), rgba(0, 0, 0, 0.94)),
+      var(--color-brand-black);
+    color: var(--color-brand-orange);
+    box-shadow:
+      0 0 18px rgba(249, 146, 40, 0.2),
+      0 14px 28px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.8rem) scale(0.88);
+    transition:
+      opacity 180ms ease,
+      transform 220ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      color 180ms ease;
+  }
+
+  .scroll-top-button::before {
+    content: "";
+    position: absolute;
+    inset: -60% auto -60% -42%;
+    width: 38%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    transform: translateX(-150%) skewX(-22deg);
+    transition: transform 560ms ease;
+  }
+
+  .scroll-top-button svg {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px rgba(249, 146, 40, 0.5));
+  }
+
+  .scroll-top-button.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .scroll-top-button:hover {
+    border-color: rgba(249, 146, 40, 0.9);
+    color: var(--color-brand-white);
+    box-shadow:
+      0 0 24px rgba(249, 146, 40, 0.48),
+      0 18px 34px rgba(0, 0, 0, 0.32);
+    transform: translateY(-0.14rem) scale(1.04);
+  }
+
+  .scroll-top-button:hover::before {
+    transform: translateX(520%) skewX(-22deg);
   }
 
   .floating-contact-actions {
@@ -229,6 +316,13 @@ const contactLinks = [
   }
 
   @media (max-width: 640px) {
+    .scroll-top-button {
+      width: 2.85rem;
+      height: 2.85rem;
+      right: 0.4rem;
+      bottom: calc(3.65rem + 0.65rem);
+    }
+
     .floating-contact-trigger {
       width: 3.65rem;
       height: 3.65rem;
