@@ -44,10 +44,24 @@ const categories = [
       button.setAttribute("aria-pressed", String(isActive));
     });
 
-    serviceCards.forEach((card) => {
+    const visibleCards = Array.from(serviceCards).filter((card) => {
       const categories = (card.dataset.serviceCategory ?? "").split(" ");
-      const shouldShow = filter === "all" || categories.includes(filter);
-      card.hidden = !shouldShow;
+      return filter === "all" || categories.includes(filter);
+    });
+
+    serviceCards.forEach((card) => {
+      card.classList.add("is-filter-resetting");
+      card.hidden = true;
+    });
+
+    // Fuerza un nuevo ciclo de render para reiniciar todas las animaciones,
+    // incluidas las cards que pertenecen a mas de una categoria.
+    void document.documentElement.offsetWidth;
+
+    visibleCards.forEach((card, visibleIndex) => {
+      card.style.setProperty("--service-card-delay", `${visibleIndex * 120}ms`);
+      card.hidden = false;
+      card.classList.remove("is-filter-resetting");
     });
   };
 
@@ -65,7 +79,7 @@ const categories = [
   }
 
   .services-categories-inner {
-    min-height: 9.2rem;
+    min-height: 9.3rem;
   }
 
   .category-layer {
@@ -76,14 +90,14 @@ const categories = [
   }
 
   .category-layer-gray {
-    top: 2.9rem;
+    top: 2.8rem;
     height: 4.5rem;
     background: linear-gradient(90deg, #3b3b3b 0%, #7a7a7a 42%, var(--color-brand-gray) 100%);
     clip-path: polygon(2.5rem 0, calc(100% - 25rem) 0, calc(100% - 20rem) 100%, 0 100%);
   }
 
   .category-layer-black {
-    top: 1.9rem;
+    top: 1.8rem;
     height: 5.5rem;
     background: linear-gradient(180deg, rgba(24, 24, 24, 0.98), rgba(4, 4, 4, 0.98));
     clip-path: polygon(4.8rem 0, calc(100% - 22rem) 0, calc(100% - 17rem) 100%, 2.2rem 100%);
@@ -95,7 +109,7 @@ const categories = [
   .category-panel {
     position: relative;
     z-index: 1;
-    top: 3.6rem;
+    top: 3.5rem;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     width: min(74rem, calc(100% - 7rem));

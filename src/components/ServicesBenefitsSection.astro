@@ -57,6 +57,8 @@ const benefits = [
   }
 
   .benefits-shell {
+    width: calc(100% - 8rem);
+    max-width: 86rem;
     min-height: 5rem;
   }
 
@@ -86,7 +88,7 @@ const benefits = [
 
   .benefits-layer-silver {
     top: 0rem;
-    left: -3.5rem;
+    left: 0;
     height: 7.45rem;
     background: linear-gradient(90deg, #f4f4f4 0%, #8f8f8f 20%, #d7d7d7 100%);
     clip-path: polygon(3.2rem 0, 100% 0, calc(100% - 5rem) 100%, 0 100%);
@@ -94,11 +96,11 @@ const benefits = [
 
   .benefits-layer-black {
     top: 0rem;
-    left: -2.25rem;
-    right: -4.5rem;
-    height: 7.45rem;
+    left: 0.5rem;
+    right: -0.5rem;
+    height: 7.6rem;
     background: linear-gradient(180deg, #030303 0%, var(--color-brand-black) 100%);
-    clip-path: polygon(4rem 0, 100% 0, calc(100% - 4.2rem) 100%, 1rem 100%);
+    clip-path: polygon(4rem 0, 100% 0, calc(100% - 3rem) 100%, 1rem 100%);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.13),
       0 22px 45px rgba(0, 0, 0, 0.28);
@@ -159,6 +161,35 @@ const benefits = [
     font-size: 0.68rem;
     line-height: 1.45;
     color: rgba(255, 255, 255, 0.68);
+  }
+
+  @media (min-width: 1024px) and (max-width: 1535px) {
+    .benefits-shell {
+      width: calc(100% - 4rem);
+      max-width: 82rem;
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+    .benefits-layer-silver {
+      left: 0;
+      right: 0;
+    }
+
+    .benefits-layer-black {
+      left: 0.5rem;
+      right: -0.5rem;
+    }
+
+    .benefit-item {
+      gap: 0.75rem;
+      padding: 0.9rem 1.35rem;
+    }
+
+    .benefit-icon {
+      width: 3rem;
+      height: 3rem;
+    }
   }
 
   @media (max-width: 1023px) {

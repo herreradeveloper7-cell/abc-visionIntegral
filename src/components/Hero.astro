@@ -7,6 +7,7 @@ interface Props {
   highlightedTitle?: string;
   description?: string;
   image?: string;
+  laptopImage?: string;
   imageAlt?: string;
   showActions?: boolean;
   showPanels?: boolean;
@@ -22,7 +23,8 @@ const {
   title = "Potenciamos tu imagen comercial con soluciones visuales de",
   highlightedTitle = "alto impacto",
   description = "Combinamos creatividad, tecnologia y precision para producir piezas visuales que hacen visible el valor de tu marca.",
-  image = "/images/imagen-hero.webp",
+  image = "/images/hero-vision-integral.webp",
+  laptopImage = "/images/hero-vision-integral-laptop.png",
   imageAlt = "Soluciones visuales de ABC Vision Integral",
   showActions = true,
   showPanels = true,
@@ -68,10 +70,10 @@ const services = [
 ];
 ---
 
-<section class:list={["hero-section relative overflow-hidden bg-brand-white pt-20", showPanels ? "pb-0" : compact ? "pb-10" : "pb-16"]}>
-  <div class:list={["hero-grid", compact ? "min-h-120 lg:min-h-132" : "min-h-148 lg:min-h-160"]}>
-    <div class="hero-copy relative z-10 flex -translate-y-6 items-center justify-end px-8 py-10 pt-16 md:px-16 md:pt-0 lg:pl-24 lg:pr-0">
-      <div class="relative max-w-xl md:pl-10">
+<section class:list={["hero-section relative overflow-hidden bg-brand-white", showPanels ? "pb-0" : compact ? "pb-10" : "pb-16"]}>
+  <div class:list={["hero-grid", showPanels ? "min-h-[46rem]" : compact ? "min-h-120 lg:min-h-132" : "min-h-[42rem]"]}>
+    <div class="hero-copy relative z-10 flex justify-start px-8 md:px-16 lg:pl-24 lg:pr-8">
+      <div class="hero-copy-inner relative md:pl-10">
         <div class="absolute -left-8 top-24 hidden h-32 w-0.5 bg-brand-orange md:block rounded-2xl"></div>
 
         <p class="mb-4 font-title text-xs font-extrabold uppercase tracking-wide text-brand-orange md:text-sm">
@@ -106,54 +108,88 @@ const services = [
     </div>
 
     <div class="hero-visual relative overflow-hidden">
-      <img
-        src={image}
-        alt={imageAlt}
-        class="absolute inset-0 h-full w-full scale-110 object-cover object-[100%_center]"
-      />
+      <picture class="absolute inset-0 block h-full w-full">
+        <source
+          media="(min-width: 1024px) and (max-width: 1535px)"
+          srcset={laptopImage}
+        />
+        <img
+          src={image}
+          alt={imageAlt}
+          class="h-full w-full object-cover object-left"
+        />
+      </picture>
     </div>
-  </div>
 
-  {
-    showPanels && (
-      <>
-        <div class="feature-strip relative z-20 ml-auto mr-0 w-[92vw] pl-4 pr-0">
-          <div class="feature-base">
-            <div class="feature-panel">
-              {features.map(({ icon: Icon, title, text }) => (
-                <article class="feature-item">
-                  <div class="feature-icon">
-                    <Icon size={34} strokeWidth={1.8} aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h2>{title}</h2>
-                    <p>{text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </>
-    )
-  }
+    <img
+      class="hero-divider"
+      src="/images/hero-diagonal-divider.svg"
+      alt=""
+      aria-hidden="true"
+    />
+  </div>
 </section>
+
+{
+  showPanels && (
+    <div class="feature-strip relative z-20 ml-auto mr-0 w-[92vw] pl-4 pr-0">
+      <div class="feature-base">
+        <div class="feature-panel">
+          {features.map(({ icon: Icon, title, text }) => (
+            <article class="feature-item">
+              <div class="feature-icon">
+                <Icon size={34} strokeWidth={1.8} aria-hidden="true" />
+              </div>
+              <div>
+                <h2>{title}</h2>
+                <p>{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 <style>
   .hero-grid {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+    grid-template-columns: minmax(0, 55%) minmax(0, 45%);
     align-items: stretch;
     overflow: hidden;
     max-width: 100%;
   }
 
+  .hero-section {
+    isolation: isolate;
+  }
+
   .hero-visual {
-    margin-left: -5rem;
     min-height: 100%;
     min-width: 0;
     background: var(--color-brand-black);
-    clip-path: polygon(clamp(12rem, 24vw, 30rem) 0, 100% 0, 100% 100%, 0rem 100%);
+  }
+
+  .hero-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(55% - 11.05rem);
+    z-index: 15;
+    display: block;
+    width: 28rem;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+  }
+
+  @media (max-width: 1535px) and (min-width: 1024px) {
+    .hero-divider {
+      left: calc(55% - 9.5rem);
+      width: 24rem;
+    }
   }
 
   .hero-copy {
@@ -161,6 +197,18 @@ const services = [
       radial-gradient(circle at 2rem 9rem, rgba(5, 49, 60, 0.1) 0 1px, transparent 1px),
       var(--color-brand-white);
     background-size: 0.8rem 0.8rem;
+    align-items: flex-start;
+    padding-top: 10rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-copy-inner {
+    width: 100%;
+    max-width: 32rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2rem, 2.35vw, 2.6rem);
   }
 
   .hero-button {
@@ -270,7 +318,7 @@ const services = [
   }
 
   .feature-strip {
-    margin-top: clamp(-7.25rem, -6vw, -4.85rem);
+    margin-top: 0;
   }
 
   .feature-base {
@@ -348,9 +396,11 @@ const services = [
     }
 
     .hero-visual {
-      margin-left: 0;
       min-height: clamp(18rem, 48vw, 25rem);
-      clip-path: none;
+    }
+
+    .hero-divider {
+      display: none;
     }
 
     .hero-copy {

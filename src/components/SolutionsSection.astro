@@ -96,13 +96,18 @@ const solutions = [
   .solution-card-overlay {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(90deg, rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.178)),
-      linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.295));
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.62) 0%,
+      rgba(0, 0, 0, 0.28) 36%,
+      transparent 72%
+    );
   }
 
   .solution-card h3 {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     z-index: 1;
     max-width: 10rem;
     padding: 1.8rem 1.35rem;
